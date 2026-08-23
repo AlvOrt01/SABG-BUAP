@@ -3,17 +3,23 @@
 import Link from "next/link";
 import type { SubmitEvent } from "react";
 import { AuthField } from "../components/auth-field";
+import { authClient } from "@/lib/auth-client";
+import router from "next/router";
 
 export function LoginForm() {
-  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
 
-    const email = formData.get("email");
-    const password = formData.get("password");
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
 
-    console.log("Login:", { email, password });
+    const { error } = await authClient.signIn.email({
+      email,
+      password,
+    });
+    router.push("/municipal/dashboard");
   }
 
   return (
