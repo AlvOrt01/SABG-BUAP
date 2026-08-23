@@ -1,14 +1,23 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
 import type { SubmitEvent } from "react";
+import { useRouter } from "next/navigation";
+
 import { AuthField } from "../components/auth-field";
 import { authClient } from "@/lib/auth-client";
-import router from "next/router";
 
 export function LoginForm() {
+  const router = useRouter();
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    setErrorMessage("");
+    setIsLoading(true);
 
     const formData = new FormData(event.currentTarget);
 
@@ -19,12 +28,20 @@ export function LoginForm() {
       email,
       password,
     });
+
+    if (error) {
+      setErrorMessage("El correo electrónico o la contraseña son incorrectos.");
+      setIsLoading(false);
+      return;
+    }
+
     router.push("/municipal/dashboard");
+    router.refresh();
+
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      {/* Correo */}
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <AuthField
         id="email"
         label="Correo electrónico"
@@ -33,7 +50,6 @@ export function LoginForm() {
         autoComplete="email"
       />
 
-      {/* Contraseña */}
       <AuthField
         id="password"
         label="Contraseña"
@@ -42,50 +58,21 @@ export function LoginForm() {
         autoComplete="current-password"
       />
 
-      {/* Recuperar contraseña */}
-      <div className="-mt-1 flex justify-end">
-        <Link
-          href="/auth/forgot-password"
-          className="
-            text-xs
-            font-semibold
-            text-[#174A91]
-            transition-colors
-            hover:text-[#315AA6]
-            hover:underline
-            underline-offset-4
-          "
+      {errorMessage && (
+        <div
+          role="alert"
+          className="rounded-lg border border-danger/20 bg-danger/5 px-4 py-3 text-sm text-danger"
         >
-          Olvidé mi contraseña
-        </Link>
-      </div>
+          {errorMessage}
+        </div>
+      )}
 
-      {/* Botón principal */}
       <button
         type="submit"
-        className="
-          mt-4
-          flex
-          h-11
-          w-full
-          items-center
-          justify-center
-          gap-2
-          rounded-lg
-          bg-[#315AA6]
-          text-base
-          font-semibold
-          text-white
-          shadow-sm
-          transition-all
-          hover:bg-[#274B8F]
-          focus:outline-none
-          focus:ring-4
-          focus:ring-[#315AA6]/20
-          active:scale-[0.99]
-        "
+        disabled={isLoading}
+        className="mt-1 h-11 rounded-lg bg-primary text-sm font-semibold text-white transition-colors hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
       >
-        <span>Ingresar</span>
+        {isLoading ? "Iniciando sesión..." : "Ingresar"}
       </button>
     </form>
   );

@@ -11,3 +11,4 @@ export type ChapterProgressProps = {
     chapters: Chapter[];
     currentChapterId: string;
 };
+
