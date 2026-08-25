@@ -1,10 +1,10 @@
 version: "3"
 
 services:
-  todosDB:
+  sabg-buap:
     image: postgres:15.3 # Version de la base de datos
     container_name: sabg-buap # nombre del contenedor, dns hacia la base de datos
-    restart: always # Reinicio para levantar la base de datos
+    restart: unless-stopped # Reinicio para levantar la base de datos
     ports:
       #
       - 5432:5432 # Burbuja totalmente aislada. 

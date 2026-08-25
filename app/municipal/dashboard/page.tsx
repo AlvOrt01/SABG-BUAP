@@ -3,12 +3,13 @@ import Link from "next/link";
 import {
   ArrowRight,
   Building2,
-  Headphones,
+  Bot,
 } from "lucide-react";
 
 import { WorkflowProgress } from "@/components/dashboard/progress/workflow-progress";
 
-import { sabgWorkflow } from "@/config/sabg-buap/workflow";
+import { sabgWorkflow } from "@/config/sabg/workflow";
+import { StartDiagnosisButton } from "../components/start-diagnosis-button";
 
 export const metadata = {
   title: "Inicio",
@@ -22,31 +23,24 @@ export default function MunicipalDashboardPage() {
         currentStep="diagnosis"
       />
 
-      <main className="flex-1 bg-background p-8">
+      <main className="flex-1 bg-background px-4 py-6 pb-28 md:px-6 md:py-8 lg:p-8 lg:pb-8">
         <div className="mx-auto max-w-7xl space-y-8">
           {/* Bienvenida */}
-          <section className="rounded-2xl border border-border bg-surface p-10 shadow-sm">
+          <section className="rounded-2xl border border-border bg-surface p-6 shadow-sm md:p-8 lg:p-10">
             <div className="flex items-center justify-between gap-10">
               <div className="max-w-4xl">
-                <h1 className="text-4xl font-bold tracking-tight text-text-primary">
-                  Bienvenido al SABG-BUAP
+                <h1 className="text-2xl font-bold tracking-tight text-primary md:text-3xl lg:text-4xl lg:text-text-primary">
+                  ¡Hola, María!
                 </h1>
 
-                <p className="mt-4 max-w-4xl text-lg leading-relaxed text-text-secondary">
+                <p className="mt-4 max-w-4xl text-sm leading-6 text-text-secondary md:text-base md:leading-7 lg:text-lg">
                   Sistema de Administración de Bienes
                   Gubernamentales. Inicie el proceso de diagnóstico
                   para evaluar y gestionar el patrimonio municipal de
                   manera eficiente y transparente.
                 </p>
 
-                <Link
-                  href="/municipal/diagnosis"
-                  className="mt-6 inline-flex items-center gap-3 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-hover"
-                >
-                  Comenzar diagnóstico
-
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
+                <StartDiagnosisButton />
               </div>
 
             </div>
@@ -62,7 +56,7 @@ export default function MunicipalDashboardPage() {
               </h2>
             </header>
 
-            <div className="grid gap-8 px-8 py-7 md:grid-cols-3">
+            <div className="grid gap-6 px-6 py-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
               <MunicipalInformation
                 label="Municipio"
                 value="Municipio Demo SABG-BUAP 001"
@@ -85,9 +79,9 @@ export default function MunicipalDashboardPage() {
         <button
           type="button"
           aria-label="Abrir Asistente SABG-BUAP"
-          className="fixed bottom-8 right-8 flex h-14 w-14 items-center justify-center rounded-full bg-secondary text-white shadow-lg transition-transform hover:scale-105"
+          className="fixed bottom-24 right-5 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-secondary text-white shadow-lg transition-transform hover:scale-105 lg:bottom-8 lg:right-8"
         >
-          <Headphones className="h-6 w-6" />
+          <Bot className="h-6 w-6" />
         </button>
       </main>
     </>

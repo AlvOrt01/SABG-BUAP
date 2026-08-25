@@ -3,13 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 import {
+    ChartNoAxesColumnIncreasing,
+    ChevronDown,
+    ChevronRight,
     CircleHelp,
     FolderOpen,
     House,
+    Lock,
     Map,
-    ChartNoAxesColumnIncreasing,
 } from "lucide-react";
 
 import type {
@@ -25,6 +29,8 @@ type DashboardSidebarProps = {
         area?: string;
         logo?: string;
     };
+
+    onNavigate?: () => void;
 };
 
 const navigationIcons = {
@@ -38,11 +44,21 @@ const navigationIcons = {
 export function DashboardSidebar({
     navigation,
     organization,
+    onNavigate,
 }: DashboardSidebarProps) {
     const pathname = usePathname();
 
+    const [openSection, setOpenSection] =
+        useState<string | null>(null);
+
+    function toggleSection(path: string) {
+        setOpenSection((current) =>
+            current === path ? null : path
+        );
+    }
+
     return (
-        <aside className="flex w-72 shrink-0 flex-col border-r border-border bg-sidebar px-5 py-6">
+        <aside className="flex h-full w-72 shrink-0 flex-col bg-sidebar px-5 py-6">
             {/* Organización */}
             {organization && (
                 <div className="mb-8 px-2">
@@ -53,7 +69,7 @@ export function DashboardSidebar({
                             width={70}
                             height={70}
                             priority
-                            className="h-auto w-[70px] object-contain"
+                            className="h-auto w-17.5 object-contain"
                         />
                     )}
 
@@ -62,7 +78,7 @@ export function DashboardSidebar({
                     </p>
 
                     {organization.area && (
-                        <p className="mt-1 text-sm font-medium text-text-secondary">
+                        <p className="mt-1 text-sm text-text-secondary">
                             {organization.area}
                         </p>
                     )}
@@ -78,28 +94,156 @@ export function DashboardSidebar({
                         pathname === item.path ||
                         pathname.startsWith(`${item.path}/`);
 
+                    const hasChildren =
+                        item.children &&
+                        item.children.length > 0;
+
+                    const isOpen =
+                        openSection === item.path ||
+                        item.children?.some(
+                            (child) =>
+                                pathname === child.path ||
+                                pathname.startsWith(
+                                    `${child.path}/`
+                                )
+                        );
+
+                    /*
+                     * Elemento bloqueado
+                     */
                     if (item.disabled) {
                         return (
-                            <div
-                                key={item.path}
-                                className="flex cursor-not-allowed items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-text-muted opacity-60"
-                            >
-                                <Icon className="h-5 w-5" />
+                            <div key={item.path}>
+                                <div
+                                    className="
+                    flex
+                    cursor-not-allowed
+                    items-center
+                    gap-3
+                    rounded-lg
+                    px-4
+                    py-3
+                    text-sm
+                    font-medium
+                    text-text-muted
+                    opacity-60
+                  "
+                                >
+                                    <Icon className="h-5 w-5" />
 
-                                {item.label}
+                                    <span className="flex-1">
+                                        {item.label}
+                                    </span>
+
+                                    <Lock className="h-4 w-4" />
+                                </div>
                             </div>
                         );
                     }
 
+                    /*
+                     * Elemento con submenú
+                     */
+                    if (hasChildren) {
+                        return (
+                            <div key={item.path}>
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        toggleSection(item.path)
+                                    }
+                                    className={[
+                                        "flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors",
+                                        isActive
+                                            ? "bg-primary text-white shadow-sm"
+                                            : "text-text-secondary hover:bg-primary-light hover:text-primary",
+                                    ].join(" ")}
+                                >
+                                    <Icon className="h-5 w-5" />
+
+                                    <span className="flex-1">
+                                        {item.label}
+                                    </span>
+
+                                    {isOpen ? (
+                                        <ChevronDown className="h-4 w-4" />
+                                    ) : (
+                                        <ChevronRight className="h-4 w-4" />
+                                    )}
+                                </button>
+
+                                {/* Submenú */}
+                                {isOpen && (
+                                    <div className="ml-8 mt-1 flex flex-col gap-1">
+                                        {item.children?.map(
+                                            (child) => {
+                                                const childActive =
+                                                    pathname === child.path ||
+                                                    pathname.startsWith(
+                                                        `${child.path}/`
+                                                    );
+
+                                                if (child.disabled) {
+                                                    return (
+                                                        <div
+                                                            key={child.path}
+                                                            className="
+                                flex
+                                cursor-not-allowed
+                                items-center
+                                gap-2
+                                rounded-lg
+                                px-3
+                                py-2
+                                text-xs
+                                text-text-muted
+                                opacity-60
+                              "
+                                                        >
+                                                            <Lock className="h-3 w-3" />
+
+                                                            {child.label}
+                                                        </div>
+                                                    );
+                                                }
+
+                                                return (
+                                                    <Link
+                                                        key={child.path}
+                                                        href={child.path}
+                                                        onClick={onNavigate}
+                                                        className={[
+                                                            "rounded-lg px-3 py-2 text-xs font-medium transition-colors",
+                                                            childActive
+                                                                ? "bg-primary-light text-primary"
+                                                                : "text-text-secondary hover:bg-primary-light hover:text-primary",
+                                                        ].join(" ")}
+                                                    >
+                                                        {child.label}
+                                                    </Link>
+                                                );
+                                            }
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    }
+
+                    /*
+                     * Elemento normal
+                     */
                     return (
                         <Link
                             key={item.path}
                             href={item.path}
-                            className={
+                            onClick={onNavigate}
+                            className={[
+                                "flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors",
                                 isActive
-                                    ? "flex items-center gap-3 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white shadow-sm"
-                                    : "flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-text-secondary transition-colors hover:bg-primary-light hover:text-primary"
-                            }
+                                    ? "bg-primary text-white shadow-sm"
+                                    : "text-text-secondary hover:bg-primary-light hover:text-primary",
+                            ].join(" ")}
                         >
                             <Icon className="h-5 w-5" />
 
@@ -109,15 +253,28 @@ export function DashboardSidebar({
                 })}
             </nav>
 
-            {/* Ayuda */}
-            <div className="mt-auto pt-8">
+            {/* Centro de ayuda */}
+            <div className="mt-auto">
                 <Link
                     href="/municipal/help"
-                    className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-text-secondary transition-colors hover:bg-primary-light hover:text-primary"
+                    onClick={onNavigate}
+                    className="
+            flex
+            items-center
+            gap-3
+            rounded-lg
+            px-4
+            py-3
+            text-sm
+            text-text-secondary
+            transition-colors
+            hover:bg-primary-light
+            hover:text-primary
+          "
                 >
                     <CircleHelp className="h-5 w-5" />
 
-                    Ayuda
+                    Centro de ayuda
                 </Link>
             </div>
         </aside>

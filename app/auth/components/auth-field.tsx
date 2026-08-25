@@ -1,4 +1,6 @@
-import type { ChangeEventHandler } from "react";
+import type {
+  ChangeEventHandler,
+} from "react";
 
 type AuthFieldProps = {
   id: string;
@@ -8,6 +10,7 @@ type AuthFieldProps = {
   placeholder?: string;
   autoComplete?: string;
   required?: boolean;
+  value?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 };
 
@@ -19,6 +22,7 @@ export function AuthField({
   placeholder,
   autoComplete,
   required = true,
+  value,
   onChange,
 }: AuthFieldProps) {
   return (
@@ -37,6 +41,7 @@ export function AuthField({
         placeholder={placeholder}
         autoComplete={autoComplete}
         required={required}
+        value={value}
         onChange={onChange}
         className="
           h-11
