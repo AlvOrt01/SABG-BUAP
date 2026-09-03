@@ -1,10 +1,28 @@
-export const WORKFLOW_STEPS = [
-  "Diagnóstico",
-  "Ruta",
-  "Instrumento",
-  "Evidencias",
-  "Revisión",
-  "Resultado",
-] as const;
+import type { WorkflowStep } from "@/types/workflow";
 
-export type WorkflowStep = (typeof WORKFLOW_STEPS)[number];
+export const sabgWorkflow: WorkflowStep[] = [
+    {
+        id: "diagnosis",
+        label: "Diagnóstico",
+    },
+    {
+        id: "route",
+        label: "Ruta",
+    },
+    {
+        id: "instrument",
+        label: "Instrumento",
+    },
+    {
+        id: "evidence",
+        label: "Evidencias",
+    },
+    {
+        id: "review",
+        label: "Revisión",
+    },
+    {
+        id: "result",
+        label: "Resultado",
+    },
+];

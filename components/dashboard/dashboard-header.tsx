@@ -1,18 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { Bell, UserRound } from "lucide-react";
+import { Bell, UserRound, Menu } from "lucide-react";
 
 type DashboardHeaderProps = {
     userName: string;
     userRole: string;
     userInitials?: string;
+    homePath?: string;
+    onMenuClick?: () => void;
 };
 
 export function DashboardHeader({
     userName,
     userRole,
     userInitials,
+    onMenuClick,
+    homePath = "/",
 }: DashboardHeaderProps) {
     const initials =
         userInitials ??
@@ -25,8 +29,21 @@ export function DashboardHeader({
 
     return (
         <header className="flex h-16 shrink-0 items-center justify-between border-b border-border bg-surface px-4 md:h-20 md:px-6 lg:px-8">
+            <button
+                type="button"
+                onClick={onMenuClick}
+                aria-label="Abrir menú"
+                className="flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary transition hover:bg-background lg:hidden"
+            >
+                <Menu className="h-5 w-5" />
+            </button>
             <span className="hidden text-2xl font-bold text-primary lg:block">
-                SABG-BUAP
+                <Link
+                    href={homePath}
+                    className="text-2xl font-bold text-primary transition-opacity hover:opacity-80"
+                >
+                    SABG-BUAP
+                </Link>
             </span>
 
             <div className="ml-auto flex items-center gap-3 md:gap-5">

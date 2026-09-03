@@ -4,9 +4,9 @@ export function WorkflowProgress({
     steps,
     currentStep,
 }: WorkflowProgressProps) {
-    const currentIndex = steps.findIndex(
-        (step) => step.id === currentStep
-    );
+    const currentIndex = currentStep
+        ? steps.findIndex((step) => step.id === currentStep)
+        : -1;
 
     return (
         <div className="shrink-0 border-b border-border bg-surface">
