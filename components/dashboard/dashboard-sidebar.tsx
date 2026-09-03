@@ -17,11 +17,10 @@ import {
 } from "lucide-react";
 
 import type {
+    NavigationConfig,
     NavigationIcon,
     NavigationItem,
 } from "@/types/navigation";
-
-import type { NavigationConfig } from "@/types/navigation";
 
 type DashboardSidebarProps = {
     navigation: NavigationConfig;
@@ -40,8 +39,7 @@ type DashboardSidebarProps = {
 const navigationIcons = {
     home: House,
     route: Map,
-    tracking:
-        ChartNoAxesColumnIncreasing,
+    tracking: ChartNoAxesColumnIncreasing,
     resources: FolderOpen,
     help: CircleHelp,
 } satisfies Record<
@@ -93,32 +91,28 @@ export function DashboardSidebar({
             </div>
 
             {/* Navegación */}
-            <nav className="flex-1 overflow-y-auto px-4">
+            <nav className="min-h-0 flex-1 overflow-y-auto px-4">
                 <div className="space-y-2">
-                    {navigation.items.map(
-                        (item) => (
-                            <SidebarItem
-                                key={item.path}
-                                item={item}
-                                onNavigate={
-                                    onNavigate
-                                }
-                            />
-                        )
-                    )}
+                    {navigation.items.map((item) => (
+                        <SidebarItem
+                            key={item.path}
+                            item={item}
+                            onNavigate={onNavigate}
+                        />
+                    ))}
                 </div>
             </nav>
 
-            {/* Ayuda */}
-            <div className="shrink-0 px-4 pb-8 pt-6">
+            {/* Centro de ayuda - siempre al fondo */}
+            <div className="shrink-0 bg-surface px-4 pb-8 pt-4">
                 <Link
                     href="/municipal/help"
                     onClick={onNavigate}
                     className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-text-secondary transition-colors hover:bg-background hover:text-primary"
                 >
-                    <CircleHelp className="h-5 w-5" />
+                    <CircleHelp className="h-5 w-5 shrink-0" />
 
-                    Centro de ayuda
+                    <span>Centro de ayuda</span>
                 </Link>
             </div>
         </div>
@@ -134,8 +128,9 @@ function SidebarItem({
 }) {
     const pathname = usePathname();
 
-    const hasChildren =
-        Boolean(item.children?.length);
+    const hasChildren = Boolean(
+        item.children?.length
+    );
 
     const childrenContainActivePath =
         item.children?.some(

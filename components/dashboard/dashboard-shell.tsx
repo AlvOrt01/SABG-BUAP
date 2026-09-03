@@ -90,7 +90,7 @@ export function DashboardShell({
     return (
         <div className="flex min-h-screen bg-background">
             {/* Desktop */}
-            <aside className="hidden shrink-0 border-r border-border bg-surface lg:block">
+            <aside className="sticky top-0 hidden h-dvh shrink-0 self-start border-r border-border bg-surface lg:block">
                 <DashboardSidebar
                     navigation={navigation}
                     organization={organization}
@@ -143,9 +143,7 @@ export function DashboardShell({
                     userInitials={user.initials}
                     homePath={homePath}
                     profilePath={profilePath}
-                    onMenuClick={() =>
-                        setSidebarOpen(true)
-                    }
+                    onMenuClick={() => setSidebarOpen(true)}
                 />
 
                 {children}
