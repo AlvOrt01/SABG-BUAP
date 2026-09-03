@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import {
+    BookOpen,
     ChartNoAxesColumnIncreasing,
     ChevronDown,
     ChevronRight,
@@ -12,7 +13,6 @@ import {
     FolderOpen,
     House,
     LockKeyhole,
-    Map,
     X,
 } from "lucide-react";
 
@@ -38,7 +38,7 @@ type DashboardSidebarProps = {
 
 const navigationIcons = {
     home: House,
-    route: Map,
+    chapter: BookOpen,
     tracking: ChartNoAxesColumnIncreasing,
     resources: FolderOpen,
     help: CircleHelp,
@@ -95,7 +95,7 @@ export function DashboardSidebar({
                 <div className="space-y-2">
                     {navigation.items.map((item) => (
                         <SidebarItem
-                            key={item.path}
+                            key={item.id}
                             item={item}
                             onNavigate={onNavigate}
                         />
@@ -106,7 +106,7 @@ export function DashboardSidebar({
             {/* Centro de ayuda - siempre al fondo */}
             <div className="shrink-0 bg-surface px-4 pb-8 pt-4">
                 <Link
-                    href="/municipal/help"
+                    href="/ayuda"
                     onClick={onNavigate}
                     className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-text-secondary transition-colors hover:bg-background hover:text-primary"
                 >
@@ -255,6 +255,9 @@ function SidebarItem({
                 )}
             </div>
         );
+    }
+    if (!item.path) {
+        return null;
     }
 
     return (

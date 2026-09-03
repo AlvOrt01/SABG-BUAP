@@ -1,24 +1,29 @@
-import type { MunicipalStep } from "@/types/workflow";
-
 export type NavigationIcon =
     | "home"
-    | "route"
+    | "chapter"
     | "tracking"
     | "resources"
     | "help";
 
+export type ChapterNavigationStatus =
+    | "completed"
+    | "current"
+    | "pending";
+
 export type NavigationChild = {
     label: string;
     path: string;
-    step?: MunicipalStep;
     disabled?: boolean;
 };
 
 export type NavigationItem = {
+    id: string;
     label: string;
-    path: string;
+    description?: string;
+    path?: string;
     icon: NavigationIcon;
-    step?: MunicipalStep;
+    chapter?: number;
+    status?: ChapterNavigationStatus;
     disabled?: boolean;
     children?: NavigationChild[];
 };
