@@ -1,11 +1,11 @@
 "use client";
-
 import { WorkflowProgress } from "./workflow-progress";
 import { sabgWorkflow } from "@/config/workflow";
 import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
 
 export function MunicipalWorkflowProgress() {
-    const { currentStep } = useMunicipalProgress();
+    const { currentStep } =
+        useMunicipalProgress();
 
     const workflowStep =
         currentStep === "not-started"

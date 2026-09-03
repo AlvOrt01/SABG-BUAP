@@ -20,7 +20,7 @@ import { sabgWorkflow } from "@/config/workflow";
 import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
 
 import type { EvidenceFile } from "@/types/evidence";
-import { MunicipalWorkflowProgress } from "@/components/dashboard/progress/municipal-workflow-progress";
+import { MunicipalProgressHeader } from "@/components/dashboard/progress/municipal-progress-header";
 
 const MAX_FILE_SIZE =
     5 * 1024 * 1024;
@@ -183,7 +183,7 @@ export function EvidenceUpload() {
     if (!evidenceUnlocked) {
         return (
             <>
-                <MunicipalWorkflowProgress />
+                <MunicipalProgressHeader />
 
                 <main className="flex-1 bg-background p-6 lg:p-8">
                     <section className="mx-auto max-w-3xl rounded-2xl border border-border bg-surface p-8 text-center shadow-sm">

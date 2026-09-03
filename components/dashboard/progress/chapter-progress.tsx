@@ -1,83 +1,169 @@
-import type {
-    ChapterProgressProps,
-} from "@/types/chapter";
+"use client";
+
+import { useState } from "react";
+
+import {
+    Check,
+    ChevronDown,
+    Circle,
+} from "lucide-react";
+
+export type ChapterProgressItem = {
+    id: string;
+    chapter: number;
+    title: string;
+    status:
+    | "completed"
+    | "current"
+    | "pending";
+};
+
+type ChapterProgressProps = {
+    chapters: ChapterProgressItem[];
+};
 
 export function ChapterProgress({
     chapters,
-    currentChapterId,
 }: ChapterProgressProps) {
-    const activeChapters = chapters
-        .filter((chapter) => chapter.enabled)
-        .sort((a, b) => a.number - b.number);
+    const [open, setOpen] =
+        useState(false);
 
-    const currentIndex = activeChapters.findIndex(
-        (chapter) => chapter.id === currentChapterId,
-    );
+    if (chapters.length === 0) {
+        return null;
+    }
+
+    const currentChapter =
+        chapters.find(
+            (chapter) =>
+                chapter.status === "current"
+        );
+
+    const completedCount =
+        chapters.filter(
+            (chapter) =>
+                chapter.status === "completed"
+        ).length;
 
     return (
-        <section className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
-            <header className="mb-6">
-                <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">
-                    Progreso de capítulos
-                </p>
+        <section className="border-b border-border bg-surface">
+            {/* Encabezado */}
+            <button
+                type="button"
+                onClick={() =>
+                    setOpen(
+                        (previous) => !previous
+                    )
+                }
+                aria-expanded={open}
+                className="flex w-full items-center gap-4 px-4 py-3 text-left transition-colors hover:bg-background/50 md:px-6 lg:px-8"
+            >
+                <div className="mx-auto flex w-full max-w-7xl items-center">
+                    <div className="min-w-0 flex-1">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">
+                            Progreso de tu ruta
+                        </p>
+                    </div>
 
-                <h2 className="mt-1 text-lg font-semibold text-text-primary">
-                    Ruta de Buen Gobierno y Gobernanza Municipal
-                </h2>
-            </header>
+                    <div className="flex items-center gap-3">
+                        {currentChapter ? (
+                            <p className="hidden text-xs font-medium text-text-secondary sm:block">
+                                Capítulo{" "}
+                                {currentChapter.chapter}
+                                {" · "}
+                                {completedCount + 1} de{" "}
+                                {chapters.length}
+                            </p>
+                        ) : (
+                            <p className="hidden text-xs font-medium text-text-secondary sm:block">
+                                Ruta completada
+                            </p>
+                        )}
 
-            <div className="overflow-x-auto pb-2">
-                <div className="flex min-w-max items-start">
-                    {activeChapters.map((chapter, index) => {
-                        const completed = index < currentIndex;
-                        const active = index === currentIndex;
-
-                        return (
-                            <div
-                                key={chapter.id}
-                                className="flex items-start"
-                            >
-                                <div className="flex w-28 flex-col items-center">
-                                    <div
-                                        className={[
-                                            "flex h-9 w-9 items-center justify-center rounded-full border text-sm font-semibold transition-colors",
-                                            completed
-                                                ? "border-primary bg-primary text-white"
-                                                : active
-                                                    ? "border-primary bg-primary text-white ring-4 ring-primary/10"
-                                                    : "border-border bg-background text-text-muted",
-                                        ].join(" ")}
-                                    >
-                                        {completed ? "✓" : chapter.number}
-                                    </div>
-
-                                    <span
-                                        className={[
-                                            "mt-2 text-center text-xs font-medium leading-tight",
-                                            completed || active
-                                                ? "text-primary"
-                                                : "text-text-muted",
-                                        ].join(" ")}
-                                    >
-                                        {chapter.shortLabel}
-                                    </span>
-                                </div>
-
-                                {index < activeChapters.length - 1 && (
-                                    <div
-                                        className={[
-                                            "mt-4.5 h-px w-12",
-                                            completed
-                                                ? "bg-primary"
-                                                : "bg-border",
-                                        ].join(" ")}
-                                    />
-                                )}
-                            </div>
-                        );
-                    })}
+                        <ChevronDown
+                            className={[
+                                "h-4 w-4 text-text-muted transition-transform duration-200",
+                                open
+                                    ? "rotate-180"
+                                    : "",
+                            ].join(" ")}
+                        />
+                    </div>
                 </div>
-            </div>
+            </button>
+
+            {/* Contenido desplegable */}
+            {/* Contenido desplegable */}
+            {open && (
+                <div className="border-t border-border px-4 pb-5 pt-4 md:px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl overflow-x-auto">
+                        <div className="mx-auto flex w-fit min-w-full items-start justify-center">
+                            {chapters.map((chapter, index) => {
+                                const completed =
+                                    chapter.status === "completed";
+
+                                const current =
+                                    chapter.status === "current";
+
+                                return (
+                                    <div
+                                        key={chapter.id}
+                                        className="flex items-start"
+                                    >
+                                        {/* Capítulo */}
+                                        <div className="flex w-44 shrink-0 flex-col items-center">
+                                            <div
+                                                className={[
+                                                    "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-xs font-bold",
+                                                    completed
+                                                        ? "border-primary bg-primary text-white"
+                                                        : current
+                                                            ? "border-primary bg-primary-light text-primary"
+                                                            : "border-border bg-background text-text-muted",
+                                                ].join(" ")}
+                                            >
+                                                {completed ? (
+                                                    <Check className="h-4 w-4" />
+                                                ) : current ? (
+                                                    chapter.chapter
+                                                ) : (
+                                                    <Circle className="h-3 w-3" />
+                                                )}
+                                            </div>
+
+                                            <p
+                                                className={[
+                                                    "mt-2 text-center text-xs font-semibold",
+                                                    completed || current
+                                                        ? "text-text-primary"
+                                                        : "text-text-muted",
+                                                ].join(" ")}
+                                            >
+                                                Capítulo {chapter.chapter}
+                                            </p>
+
+                                            <p className="mt-0.5 max-w-40 text-center text-[11px] leading-4 text-text-secondary">
+                                                {chapter.title}
+                                            </p>
+                                        </div>
+
+                                        {/* Línea entre capítulos */}
+                                        {index < chapters.length - 1 && (
+                                            <div
+                                                className={[
+                                                    "mt-4 h-px w-24 shrink-0 lg:w-32",
+                                                    completed
+                                                        ? "bg-primary"
+                                                        : "bg-border",
+                                                ].join(" ")}
+                                            />
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }
