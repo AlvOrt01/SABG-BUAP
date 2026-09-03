@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -12,14 +11,17 @@ import {
     CircleHelp,
     FolderOpen,
     House,
-    Lock,
+    LockKeyhole,
     Map,
+    X,
 } from "lucide-react";
 
 import type {
-    NavigationConfig,
     NavigationIcon,
+    NavigationItem,
 } from "@/types/navigation";
+
+import type { NavigationConfig } from "@/types/navigation";
 
 type DashboardSidebarProps = {
     navigation: NavigationConfig;
@@ -30,253 +32,252 @@ type DashboardSidebarProps = {
         logo?: string;
     };
 
+    mobile?: boolean;
+    onClose?: () => void;
     onNavigate?: () => void;
 };
 
 const navigationIcons = {
     home: House,
     route: Map,
-    tracking: ChartNoAxesColumnIncreasing,
+    tracking:
+        ChartNoAxesColumnIncreasing,
     resources: FolderOpen,
     help: CircleHelp,
-} satisfies Record<NavigationIcon, React.ElementType>;
+} satisfies Record<
+    NavigationIcon,
+    React.ElementType
+>;
 
 export function DashboardSidebar({
     navigation,
     organization,
+    mobile = false,
+    onClose,
     onNavigate,
 }: DashboardSidebarProps) {
-    const pathname = usePathname();
-
-    const [openSection, setOpenSection] =
-        useState<string | null>(null);
-
-    function toggleSection(path: string) {
-        setOpenSection((current) =>
-            current === path ? null : path
-        );
-    }
-
     return (
-        <aside className="flex h-full w-72 shrink-0 flex-col bg-sidebar px-5 py-6">
+        <div className="flex h-dvh w-[280px] flex-col bg-surface">
             {/* Organización */}
-            {organization && (
-                <div className="mb-8 px-2">
-                    {organization.logo && (
-                        <Image
-                            src={organization.logo}
-                            alt={organization.name}
-                            width={70}
-                            height={70}
-                            priority
-                            className="h-auto w-17.5 object-contain"
-                        />
-                    )}
+            <div className="relative shrink-0 px-8 pb-6 pt-8">
+                {mobile && (
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        aria-label="Cerrar menú"
+                        className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-lg text-text-secondary transition-colors hover:bg-background hover:text-text-primary"
+                    >
+                        <X className="h-5 w-5" />
+                    </button>
+                )}
 
-                    <p className="mt-4 text-sm font-semibold leading-snug text-primary">
+                {organization?.logo && (
+                    <img
+                        src={organization.logo}
+                        alt=""
+                        className="mb-4 h-12 w-12 object-contain"
+                    />
+                )}
+
+                {organization?.name && (
+                    <p className="pr-5 text-sm font-semibold leading-5 text-primary">
                         {organization.name}
                     </p>
+                )}
 
-                    {organization.area && (
-                        <p className="mt-1 text-sm text-text-secondary">
-                            {organization.area}
-                        </p>
-                    )}
-                </div>
-            )}
+                {organization?.area && (
+                    <p className="mt-1 text-sm text-text-secondary">
+                        {organization.area}
+                    </p>
+                )}
+            </div>
 
             {/* Navegación */}
-            <nav className="flex flex-col gap-2">
-                {navigation.items.map((item) => {
-                    const Icon = navigationIcons[item.icon];
-
-                    const isActive =
-                        pathname === item.path ||
-                        pathname.startsWith(`${item.path}/`);
-
-                    const hasChildren =
-                        item.children &&
-                        item.children.length > 0;
-
-                    const isOpen =
-                        openSection === item.path ||
-                        item.children?.some(
-                            (child) =>
-                                pathname === child.path ||
-                                pathname.startsWith(
-                                    `${child.path}/`
-                                )
-                        );
-
-                    /*
-                     * Elemento bloqueado
-                     */
-                    if (item.disabled) {
-                        return (
-                            <div key={item.path}>
-                                <div
-                                    className="
-                    flex
-                    cursor-not-allowed
-                    items-center
-                    gap-3
-                    rounded-lg
-                    px-4
-                    py-3
-                    text-sm
-                    font-medium
-                    text-text-muted
-                    opacity-60
-                  "
-                                >
-                                    <Icon className="h-5 w-5" />
-
-                                    <span className="flex-1">
-                                        {item.label}
-                                    </span>
-
-                                    <Lock className="h-4 w-4" />
-                                </div>
-                            </div>
-                        );
-                    }
-
-                    /*
-                     * Elemento con submenú
-                     */
-                    if (hasChildren) {
-                        return (
-                            <div key={item.path}>
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        toggleSection(item.path)
-                                    }
-                                    className={[
-                                        "flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors",
-                                        isActive
-                                            ? "bg-primary text-white shadow-sm"
-                                            : "text-text-secondary hover:bg-primary-light hover:text-primary",
-                                    ].join(" ")}
-                                >
-                                    <Icon className="h-5 w-5" />
-
-                                    <span className="flex-1">
-                                        {item.label}
-                                    </span>
-
-                                    {isOpen ? (
-                                        <ChevronDown className="h-4 w-4" />
-                                    ) : (
-                                        <ChevronRight className="h-4 w-4" />
-                                    )}
-                                </button>
-
-                                {/* Submenú */}
-                                {isOpen && (
-                                    <div className="ml-8 mt-1 flex flex-col gap-1">
-                                        {item.children?.map(
-                                            (child) => {
-                                                const childActive =
-                                                    pathname === child.path ||
-                                                    pathname.startsWith(
-                                                        `${child.path}/`
-                                                    );
-
-                                                if (child.disabled) {
-                                                    return (
-                                                        <div
-                                                            key={child.path}
-                                                            className="
-                                flex
-                                cursor-not-allowed
-                                items-center
-                                gap-2
-                                rounded-lg
-                                px-3
-                                py-2
-                                text-xs
-                                text-text-muted
-                                opacity-60
-                              "
-                                                        >
-                                                            <Lock className="h-3 w-3" />
-
-                                                            {child.label}
-                                                        </div>
-                                                    );
-                                                }
-
-                                                return (
-                                                    <Link
-                                                        key={child.path}
-                                                        href={child.path}
-                                                        onClick={onNavigate}
-                                                        className={[
-                                                            "rounded-lg px-3 py-2 text-xs font-medium transition-colors",
-                                                            childActive
-                                                                ? "bg-primary-light text-primary"
-                                                                : "text-text-secondary hover:bg-primary-light hover:text-primary",
-                                                        ].join(" ")}
-                                                    >
-                                                        {child.label}
-                                                    </Link>
-                                                );
-                                            }
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-                        );
-                    }
-
-                    /*
-                     * Elemento normal
-                     */
-                    return (
-                        <Link
-                            key={item.path}
-                            href={item.path}
-                            onClick={onNavigate}
-                            className={[
-                                "flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors",
-                                isActive
-                                    ? "bg-primary text-white shadow-sm"
-                                    : "text-text-secondary hover:bg-primary-light hover:text-primary",
-                            ].join(" ")}
-                        >
-                            <Icon className="h-5 w-5" />
-
-                            {item.label}
-                        </Link>
-                    );
-                })}
+            <nav className="flex-1 overflow-y-auto px-4">
+                <div className="space-y-2">
+                    {navigation.items.map(
+                        (item) => (
+                            <SidebarItem
+                                key={item.path}
+                                item={item}
+                                onNavigate={
+                                    onNavigate
+                                }
+                            />
+                        )
+                    )}
+                </div>
             </nav>
 
-            {/* Centro de ayuda */}
-            <div className="mt-auto">
+            {/* Ayuda */}
+            <div className="shrink-0 px-4 pb-8 pt-6">
                 <Link
                     href="/municipal/help"
                     onClick={onNavigate}
-                    className="
-            flex
-            items-center
-            gap-3
-            rounded-lg
-            px-4
-            py-3
-            text-sm
-            text-text-secondary
-            transition-colors
-            hover:bg-primary-light
-            hover:text-primary
-          "
+                    className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-text-secondary transition-colors hover:bg-background hover:text-primary"
                 >
                     <CircleHelp className="h-5 w-5" />
 
                     Centro de ayuda
                 </Link>
             </div>
-        </aside>
+        </div>
+    );
+}
+
+function SidebarItem({
+    item,
+    onNavigate,
+}: {
+    item: NavigationItem;
+    onNavigate?: () => void;
+}) {
+    const pathname = usePathname();
+
+    const hasChildren =
+        Boolean(item.children?.length);
+
+    const childrenContainActivePath =
+        item.children?.some(
+            (child) =>
+                pathname === child.path
+        ) ?? false;
+
+    const active =
+        pathname === item.path ||
+        childrenContainActivePath;
+
+    const [expanded, setExpanded] =
+        useState(
+            childrenContainActivePath
+        );
+
+    const Icon =
+        navigationIcons[item.icon];
+
+    if (item.disabled) {
+        return (
+            <div className="flex cursor-not-allowed items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-text-muted opacity-55">
+                <Icon className="h-5 w-5 shrink-0" />
+
+                <span className="flex-1">
+                    {item.label}
+                </span>
+
+                <LockKeyhole className="h-4 w-4" />
+            </div>
+        );
+    }
+
+    if (hasChildren) {
+        return (
+            <div>
+                <button
+                    type="button"
+                    onClick={() =>
+                        setExpanded(
+                            (previous) =>
+                                !previous
+                        )
+                    }
+                    className={[
+                        "flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium transition-colors",
+                        active
+                            ? "bg-primary text-white"
+                            : "text-text-secondary hover:bg-background hover:text-primary",
+                    ].join(" ")}
+                >
+                    <Icon className="h-5 w-5 shrink-0" />
+
+                    <span className="flex-1">
+                        {item.label}
+                    </span>
+
+                    {expanded ? (
+                        <ChevronDown className="h-4 w-4 shrink-0" />
+                    ) : (
+                        <ChevronRight className="h-4 w-4 shrink-0" />
+                    )}
+                </button>
+
+                {expanded && (
+                    <div className="mt-1 space-y-1 pl-9">
+                        {item.children?.map(
+                            (child) => {
+                                const childActive =
+                                    pathname ===
+                                    child.path;
+
+                                if (
+                                    child.disabled
+                                ) {
+                                    return (
+                                        <div
+                                            key={
+                                                child.path
+                                            }
+                                            className="flex cursor-not-allowed items-center gap-2 rounded-lg px-3 py-2 text-sm text-text-muted opacity-55"
+                                        >
+                                            <LockKeyhole className="h-3.5 w-3.5 shrink-0" />
+
+                                            <span>
+                                                {
+                                                    child.label
+                                                }
+                                            </span>
+                                        </div>
+                                    );
+                                }
+
+                                return (
+                                    <Link
+                                        key={
+                                            child.path
+                                        }
+                                        href={
+                                            child.path
+                                        }
+                                        onClick={
+                                            onNavigate
+                                        }
+                                        className={[
+                                            "block rounded-lg px-3 py-2 text-sm transition-colors",
+                                            childActive
+                                                ? "bg-primary-light font-medium text-primary"
+                                                : "text-text-secondary hover:bg-background hover:text-primary",
+                                        ].join(
+                                            " "
+                                        )}
+                                    >
+                                        {
+                                            child.label
+                                        }
+                                    </Link>
+                                );
+                            }
+                        )}
+                    </div>
+                )}
+            </div>
+        );
+    }
+
+    return (
+        <Link
+            href={item.path}
+            onClick={onNavigate}
+            className={[
+                "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors",
+                active
+                    ? "bg-primary text-white shadow-sm"
+                    : "text-text-secondary hover:bg-background hover:text-primary",
+            ].join(" ")}
+        >
+            <Icon className="h-5 w-5 shrink-0" />
+
+            <span>
+                {item.label}
+            </span>
+        </Link>
     );
 }

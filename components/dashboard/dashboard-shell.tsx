@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { DashboardHeader } from "./dashboard-header";
 import { DashboardSidebar } from "./dashboard-sidebar";
@@ -14,6 +14,7 @@ type DashboardShellProps = {
     navigation: NavigationConfig;
 
     homePath?: string;
+    profilePath?: string;
 
     user: {
         name: string;
@@ -32,38 +33,90 @@ export function DashboardShell({
     children,
     navigation,
     homePath,
+    profilePath,
     user,
     organization,
 }: DashboardShellProps) {
-    const [sidebarOpen, setSidebarOpen] =
-        useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    /*
+     * Evita que el contenido de fondo haga scroll
+     * mientras el menú móvil/tablet está abierto.
+     */
+    useEffect(() => {
+        if (!sidebarOpen) {
+            return;
+        }
+
+        const previousOverflow =
+            document.body.style.overflow;
+
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            document.body.style.overflow =
+                previousOverflow;
+        };
+    }, [sidebarOpen]);
+
+    /*
+     * Permite cerrar el drawer con Escape.
+     */
+    useEffect(() => {
+        function handleKeyDown(
+            event: KeyboardEvent
+        ) {
+            if (
+                event.key === "Escape" &&
+                sidebarOpen
+            ) {
+                setSidebarOpen(false);
+            }
+        }
+
+        window.addEventListener(
+            "keydown",
+            handleKeyDown
+        );
+
+        return () => {
+            window.removeEventListener(
+                "keydown",
+                handleKeyDown
+            );
+        };
+    }, [sidebarOpen]);
 
     return (
         <div className="flex min-h-screen bg-background">
-            {/* Desktop sidebar */}
-            <div className="hidden border-r border-border lg:block">
+            {/* Desktop */}
+            <aside className="hidden shrink-0 border-r border-border bg-surface lg:block">
                 <DashboardSidebar
                     navigation={navigation}
                     organization={organization}
                 />
-            </div>
+            </aside>
 
-            {/* Mobile / Tablet overlay */}
-            {sidebarOpen && (
-                <button
-                    type="button"
-                    aria-label="Cerrar menú"
-                    onClick={() =>
-                        setSidebarOpen(false)
-                    }
-                    className="fixed inset-0 z-40 bg-black/30 lg:hidden"
-                />
-            )}
-
-            {/* Mobile / Tablet sidebar */}
+            {/* Overlay móvil / tablet */}
             <div
+                aria-hidden={!sidebarOpen}
+                onClick={() =>
+                    setSidebarOpen(false)
+                }
                 className={[
-                    "fixed inset-y-0 left-0 z-50 w-72 border-r border-border bg-sidebar shadow-xl transition-transform duration-300 lg:hidden",
+                    "fixed inset-0 z-40 bg-black/40 backdrop-blur-[1px] transition-opacity duration-300 lg:hidden",
+                    sidebarOpen
+                        ? "pointer-events-auto opacity-100"
+                        : "pointer-events-none opacity-0",
+                ].join(" ")}
+            />
+
+            {/* Drawer móvil / tablet */}
+            <aside
+                aria-label="Navegación principal"
+                aria-hidden={!sidebarOpen}
+                className={[
+                    "fixed inset-y-0 left-0 z-50 w-[280px] max-w-[85vw] border-r border-border bg-surface shadow-2xl transition-transform duration-300 ease-out lg:hidden",
                     sidebarOpen
                         ? "translate-x-0"
                         : "-translate-x-full",
@@ -72,18 +125,24 @@ export function DashboardShell({
                 <DashboardSidebar
                     navigation={navigation}
                     organization={organization}
+                    mobile
+                    onClose={() =>
+                        setSidebarOpen(false)
+                    }
                     onNavigate={() =>
                         setSidebarOpen(false)
                     }
                 />
-            </div>
+            </aside>
 
+            {/* Contenido */}
             <div className="flex min-w-0 flex-1 flex-col">
                 <DashboardHeader
                     userName={user.name}
                     userRole={user.role}
                     userInitials={user.initials}
                     homePath={homePath}
+                    profilePath={profilePath}
                     onMenuClick={() =>
                         setSidebarOpen(true)
                     }
