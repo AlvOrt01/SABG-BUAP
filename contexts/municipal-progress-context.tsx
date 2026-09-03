@@ -63,10 +63,32 @@ export function MunicipalProgressProvider({
         setHydrated(true);
     }, []);
 
-    const persistStep = useCallback((step: MunicipalStep) => {
-        setCurrentStep(step);
-        localStorage.setItem(STORAGE_KEY, step);
-    }, []);
+    const persistStep = useCallback(
+        (step: MunicipalStep) => {
+            setCurrentStep((previousStep) => {
+                const previousIndex =
+                    stepOrder.indexOf(previousStep);
+
+                const nextIndex =
+                    stepOrder.indexOf(step);
+
+                if (
+                    previousIndex !== -1 &&
+                    nextIndex < previousIndex
+                ) {
+                    return previousStep;
+                }
+
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    step
+                );
+
+                return step;
+            });
+        },
+        []
+    );
 
     const currentIndex = stepOrder.indexOf(currentStep);
 
@@ -94,27 +116,40 @@ export function MunicipalProgressProvider({
 
     const completeStep = useCallback(
         (step: MunicipalStep) => {
-            /*
-             * Solo el paso actual puede desbloquear
-             * el siguiente paso.
-             */
-            if (step !== currentStep) {
+            const stepIndex = stepOrder.indexOf(step);
+            const currentIndex = stepOrder.indexOf(currentStep);
+
+            if (stepIndex === -1) {
                 return;
             }
 
-            const index = stepOrder.indexOf(step);
+            const nextStep = stepOrder[stepIndex + 1];
 
-            if (index === -1) {
-                return;
-            }
-
-            const nextStep = stepOrder[index + 1];
-
-            /*
-             * Si ya estamos en el último paso,
-             * no hay nada más que desbloquear.
-             */
             if (!nextStep) {
+                return;
+            }
+
+            /*
+             * Caso especial:
+             * El diagnóstico es la primera etapa disponible.
+             *
+             * Aunque el usuario todavía esté en "not-started",
+             * si termina correctamente el diagnóstico debemos
+             * avanzar a "route".
+             */
+            if (
+                step === "diagnosis" &&
+                currentStep === "not-started"
+            ) {
+                persistStep("route");
+                return;
+            }
+
+            /*
+             * Solo la etapa actual puede desbloquear
+             * la siguiente.
+             */
+            if (stepIndex !== currentIndex) {
                 return;
             }
 
