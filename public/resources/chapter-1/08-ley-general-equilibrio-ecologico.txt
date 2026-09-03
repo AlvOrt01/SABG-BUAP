@@ -1,0 +1,22 @@
+RECURSO SABG-BUAP
+=================
+
+Nombre:
+Ley General del Equilibrio Ecológico y la Protección al Ambiente
+
+Archivo PDF esperado:
+08-ley-general-equilibrio-ecologico.pdf
+
+Descripción:
+Normativa ambiental vinculada con competencias municipales. El capítulo refiere los artículos 1, 7, 8, 14 Bis, 112, 159 y 189.
+
+INSTRUCCIONES
+-------------
+1. Descargar la versión oficial y vigente del documento.
+2. Verificar que provenga de una fuente oficial.
+3. Guardar el PDF en esta misma carpeta.
+4. Utilizar exactamente este nombre:
+
+08-ley-general-equilibrio-ecologico.pdf
+
+5. Cuando el PDF esté agregado correctamente, este archivo TXT puede eliminarse.

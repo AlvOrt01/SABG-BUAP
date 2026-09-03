@@ -1,0 +1,22 @@
+RECURSO SABG-BUAP
+=================
+
+Nombre:
+Constitución Política del Estado Libre y Soberano de Puebla
+
+Archivo PDF esperado:
+04-constitucion-politica-estado-puebla.pdf
+
+Descripción:
+Marco constitucional estatal. Para este capítulo son especialmente relevantes los artículos 12, 102, 103, 104, 105 y 106.
+
+INSTRUCCIONES
+-------------
+1. Descargar la versión oficial y vigente del documento.
+2. Verificar que provenga de una fuente oficial.
+3. Guardar el PDF en esta misma carpeta.
+4. Utilizar exactamente este nombre:
+
+04-constitucion-politica-estado-puebla.pdf
+
+5. Cuando el PDF esté agregado correctamente, este archivo TXT puede eliminarse.

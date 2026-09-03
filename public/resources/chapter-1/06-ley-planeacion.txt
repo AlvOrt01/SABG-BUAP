@@ -1,0 +1,22 @@
+RECURSO SABG-BUAP
+=================
+
+Nombre:
+Ley de Planeación
+
+Archivo PDF esperado:
+06-ley-planeacion.pdf
+
+Descripción:
+Marco relacionado con los procesos de planeación. El capítulo refiere especialmente los artículos 2, 14, 33 y 34.
+
+INSTRUCCIONES
+-------------
+1. Descargar la versión oficial y vigente del documento.
+2. Verificar que provenga de una fuente oficial.
+3. Guardar el PDF en esta misma carpeta.
+4. Utilizar exactamente este nombre:
+
+06-ley-planeacion.pdf
+
+5. Cuando el PDF esté agregado correctamente, este archivo TXT puede eliminarse.

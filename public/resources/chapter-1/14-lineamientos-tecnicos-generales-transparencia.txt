@@ -1,0 +1,22 @@
+RECURSO SABG-BUAP
+=================
+
+Nombre:
+Lineamientos Técnicos Generales de Obligaciones de Transparencia
+
+Archivo PDF esperado:
+14-lineamientos-tecnicos-generales-transparencia.pdf
+
+Descripción:
+Lineamientos relacionados con la publicación, homologación y estandarización de las obligaciones de transparencia.
+
+INSTRUCCIONES
+-------------
+1. Descargar la versión oficial y vigente del documento.
+2. Verificar que provenga de una fuente oficial.
+3. Guardar el PDF en esta misma carpeta.
+4. Utilizar exactamente este nombre:
+
+14-lineamientos-tecnicos-generales-transparencia.pdf
+
+5. Cuando el PDF esté agregado correctamente, este archivo TXT puede eliminarse.

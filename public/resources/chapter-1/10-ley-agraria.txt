@@ -1,0 +1,22 @@
+RECURSO SABG-BUAP
+=================
+
+Nombre:
+Ley Agraria
+
+Archivo PDF esperado:
+10-ley-agraria.pdf
+
+Descripción:
+Normativa federal relacionada con el régimen agrario. El capítulo refiere el artículo 3.
+
+INSTRUCCIONES
+-------------
+1. Descargar la versión oficial y vigente del documento.
+2. Verificar que provenga de una fuente oficial.
+3. Guardar el PDF en esta misma carpeta.
+4. Utilizar exactamente este nombre:
+
+10-ley-agraria.pdf
+
+5. Cuando el PDF esté agregado correctamente, este archivo TXT puede eliminarse.

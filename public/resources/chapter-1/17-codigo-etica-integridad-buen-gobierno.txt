@@ -1,0 +1,22 @@
+RECURSO SABG-BUAP
+=================
+
+Nombre:
+Código de Ética e Integridad para un Buen Gobierno
+
+Archivo PDF esperado:
+17-codigo-etica-integridad-buen-gobierno.pdf
+
+Descripción:
+Documento de referencia sobre principios, valores y reglas de conducta de las personas servidoras públicas.
+
+INSTRUCCIONES
+-------------
+1. Descargar la versión oficial y vigente del documento.
+2. Verificar que provenga de una fuente oficial.
+3. Guardar el PDF en esta misma carpeta.
+4. Utilizar exactamente este nombre:
+
+17-codigo-etica-integridad-buen-gobierno.pdf
+
+5. Cuando el PDF esté agregado correctamente, este archivo TXT puede eliminarse.

@@ -36,8 +36,8 @@ export function DashboardHeader({
     userInitials,
     userEmail,
     homePath = "/",
-    profilePath = "/municipal/profile",
-    preferencesPath = "/municipal/preferences",
+    profilePath = "/perfil",
+    preferencesPath = "/preferencias",
     onMenuClick,
 }: DashboardHeaderProps) {
     const router = useRouter();

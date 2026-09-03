@@ -1,0 +1,22 @@
+RECURSO SABG-BUAP
+=================
+
+Nombre:
+Lineamientos Generales en materia de clasificación y desclasificación de la información
+
+Archivo PDF esperado:
+16-lineamientos-clasificacion-desclasificacion.pdf
+
+Descripción:
+Lineamientos relativos a clasificación, desclasificación y elaboración de versiones públicas.
+
+INSTRUCCIONES
+-------------
+1. Descargar la versión oficial y vigente del documento.
+2. Verificar que provenga de una fuente oficial.
+3. Guardar el PDF en esta misma carpeta.
+4. Utilizar exactamente este nombre:
+
+16-lineamientos-clasificacion-desclasificacion.pdf
+
+5. Cuando el PDF esté agregado correctamente, este archivo TXT puede eliminarse.

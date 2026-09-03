@@ -1,0 +1,22 @@
+RECURSO SABG-BUAP
+=================
+
+Nombre:
+Ley General de Asentamientos Humanos, Ordenamiento Territorial y Desarrollo Urbano
+
+Archivo PDF esperado:
+07-ley-general-asentamientos-humanos.pdf
+
+Descripción:
+Normativa federal vinculada con ordenamiento territorial y desarrollo urbano.
+
+INSTRUCCIONES
+-------------
+1. Descargar la versión oficial y vigente del documento.
+2. Verificar que provenga de una fuente oficial.
+3. Guardar el PDF en esta misma carpeta.
+4. Utilizar exactamente este nombre:
+
+07-ley-general-asentamientos-humanos.pdf
+
+5. Cuando el PDF esté agregado correctamente, este archivo TXT puede eliminarse.

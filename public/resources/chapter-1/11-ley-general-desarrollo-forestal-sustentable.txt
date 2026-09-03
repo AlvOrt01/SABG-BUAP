@@ -1,0 +1,22 @@
+RECURSO SABG-BUAP
+=================
+
+Nombre:
+Ley General de Desarrollo Forestal Sustentable
+
+Archivo PDF esperado:
+11-ley-general-desarrollo-forestal-sustentable.pdf
+
+Descripción:
+Normativa relacionada con desarrollo forestal sustentable. El capítulo refiere el artículo 6.
+
+INSTRUCCIONES
+-------------
+1. Descargar la versión oficial y vigente del documento.
+2. Verificar que provenga de una fuente oficial.
+3. Guardar el PDF en esta misma carpeta.
+4. Utilizar exactamente este nombre:
+
+11-ley-general-desarrollo-forestal-sustentable.pdf
+
+5. Cuando el PDF esté agregado correctamente, este archivo TXT puede eliminarse.

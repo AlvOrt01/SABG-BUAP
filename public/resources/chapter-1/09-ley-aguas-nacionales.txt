@@ -1,0 +1,22 @@
+RECURSO SABG-BUAP
+=================
+
+Nombre:
+Ley de Aguas Nacionales
+
+Archivo PDF esperado:
+09-ley-aguas-nacionales.pdf
+
+Descripción:
+Normativa relacionada con la gestión del agua. El capítulo refiere los artículos 13 y 44 al 47.
+
+INSTRUCCIONES
+-------------
+1. Descargar la versión oficial y vigente del documento.
+2. Verificar que provenga de una fuente oficial.
+3. Guardar el PDF en esta misma carpeta.
+4. Utilizar exactamente este nombre:
+
+09-ley-aguas-nacionales.pdf
+
+5. Cuando el PDF esté agregado correctamente, este archivo TXT puede eliminarse.

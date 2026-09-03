@@ -32,8 +32,8 @@ export function MunicipalDashboardShell({
     return (
         <DashboardShell
             navigation={navigation}
-            homePath="/municipal/dashboard"
-            profilePath="/municipal/profile"
+            homePath="/dashboard"
+            profilePath="/perfil"
             user={user}
             organization={organization}
         >
