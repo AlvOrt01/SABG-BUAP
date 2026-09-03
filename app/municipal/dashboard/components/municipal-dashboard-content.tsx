@@ -5,8 +5,7 @@ import {
     Bot,
 } from "lucide-react";
 
-import { WorkflowProgress } from "@/components/dashboard/progress/workflow-progress";
-import { sabgWorkflow } from "@/config/workflow";
+import { MunicipalWorkflowProgress } from "@/components/dashboard/progress/municipal-workflow-progress";
 import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
 
 import { StartDiagnosisButton } from "@/app/municipal/dashboard/components/start-diagnosis-button";
@@ -16,14 +15,7 @@ export function MunicipalDashboardContent() {
 
     return (
         <>
-            <WorkflowProgress
-                steps={sabgWorkflow}
-                currentStep={
-                    currentStep === "not-started"
-                        ? null
-                        : currentStep
-                }
-            />
+            <MunicipalWorkflowProgress />
 
             <main className="flex-1 bg-background px-4 py-6 md:px-6 md:py-8 lg:p-8">
                 <div className="mx-auto max-w-7xl space-y-8">

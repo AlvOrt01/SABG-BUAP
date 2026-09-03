@@ -11,9 +11,6 @@ import {
     Lightbulb,
     Map,
 } from "lucide-react";
-
-import { WorkflowProgress } from "@/components/dashboard/progress/workflow-progress";
-import { sabgWorkflow } from "@/config/workflow";
 import { recommendedRouteMock } from "@/config/route";
 import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
 
@@ -22,6 +19,7 @@ import type {
     RoutePriority,
     RouteResource,
 } from "@/types/route";
+import { MunicipalWorkflowProgress } from "@/components/dashboard/progress/municipal-workflow-progress";
 
 export function RecommendedRoute() {
     const router = useRouter();
@@ -45,16 +43,7 @@ export function RecommendedRoute() {
 
     return (
         <>
-            <WorkflowProgress
-                steps={sabgWorkflow}
-                currentStep={
-                    currentStep === "tracking"
-                        ? "review"
-                        : currentStep === "not-started"
-                            ? null
-                            : currentStep
-                }
-            />
+            <MunicipalWorkflowProgress />
 
             <main className="flex-1 bg-background px-4 py-6 md:px-6 md:py-8 lg:p-8">
                 <div className="mx-auto max-w-7xl space-y-6">
