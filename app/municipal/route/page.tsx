@@ -1,3 +1,11 @@
-export default function Page() {
-  return <section><h1>Mi ruta</h1></section>;
+import type { Metadata } from "next";
+
+import { RecommendedRoute } from "./components/recommended-route";
+
+export const metadata: Metadata = {
+  title: "Ruta recomendada",
+};
+
+export default function MunicipalRoutePage() {
+  return <RecommendedRoute />;
 }

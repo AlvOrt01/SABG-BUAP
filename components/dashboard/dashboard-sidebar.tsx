@@ -57,7 +57,7 @@ export function DashboardSidebar({
     onNavigate,
 }: DashboardSidebarProps) {
     return (
-        <div className="flex h-dvh w-[280px] flex-col bg-surface">
+        <div className="flex h-dvh w-70 flex-col bg-surface">
             {/* Organización */}
             <div className="relative shrink-0 px-8 pb-6 pt-8">
                 {mobile && (

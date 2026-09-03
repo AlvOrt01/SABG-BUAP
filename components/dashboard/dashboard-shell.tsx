@@ -116,7 +116,7 @@ export function DashboardShell({
                 aria-label="Navegación principal"
                 aria-hidden={!sidebarOpen}
                 className={[
-                    "fixed inset-y-0 left-0 z-50 w-[280px] max-w-[85vw] border-r border-border bg-surface shadow-2xl transition-transform duration-300 ease-out lg:hidden",
+                    "fixed inset-y-0 left-0 z-50 w-70 max-w-[85vw] border-r border-border bg-surface shadow-2xl transition-transform duration-300 ease-out lg:hidden",
                     sidebarOpen
                         ? "translate-x-0"
                         : "-translate-x-full",
