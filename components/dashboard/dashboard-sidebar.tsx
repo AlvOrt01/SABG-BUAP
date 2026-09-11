@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import {
     BookOpen,
+    Building2,
     ChartNoAxesColumnIncreasing,
     ChevronDown,
     ChevronRight,
@@ -14,6 +15,8 @@ import {
     House,
     LockKeyhole,
     X,
+    ClipboardList,
+    Users,
 } from "lucide-react";
 
 import type {
@@ -42,6 +45,9 @@ const navigationIcons = {
     tracking: ChartNoAxesColumnIncreasing,
     resources: FolderOpen,
     help: CircleHelp,
+    users: Users,
+    building: Building2,
+    audit: ClipboardList,
 } satisfies Record<
     NavigationIcon,
     React.ElementType

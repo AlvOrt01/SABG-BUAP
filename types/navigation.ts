@@ -4,7 +4,10 @@ export type NavigationIcon =
     | "chapter"
     | "tracking"
     | "resources"
-    | "help";
+    | "help"
+    | "users"
+    | "building"
+    | "audit";
 
 export type ChapterNavigationStatus =
     | "completed"

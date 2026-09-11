@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 
 import { MunicipalDashboardShell } from "@/components/municipal/municipal-dashboard-shell";
 
@@ -19,6 +20,23 @@ export default async function MunicipalLayout({
 
   if (!session) {
     redirect("/auth/login");
+  }
+
+  const user =
+    await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: {
+        role: true,
+        active: true,
+      },
+    });
+
+  if (!user || !user.active) {
+    redirect("/auth/login");
+  }
+
+  if (user.role === "admin") {
+    redirect("/admin");
   }
 
   const name =

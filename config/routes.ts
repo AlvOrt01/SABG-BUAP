@@ -1,6 +1,15 @@
 export const routes = {
     dashboard: "/dashboard",
 
+    admin: {
+        home: "/admin",
+        users: "/admin/usuarios",
+        municipalities: "/admin/municipios",
+        audit: "/admin/registro",
+        profile: "/admin/perfil",
+        preferences: "/admin/preferencias",
+    },
+
     profile: "/perfil",
     preferences: "/preferencias",
     help: "/ayuda",

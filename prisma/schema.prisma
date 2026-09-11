@@ -7,8 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Los modelos del dominio SABG-BUAP se agregarán
-// cuando se cierre el modelo entidad-relación.
+enum UserRole {
+  admin
+  coordinator
+  teacher
+  municipal
+}
 
 model User {
   id            String    @id
@@ -16,6 +20,8 @@ model User {
   email         String
   emailVerified Boolean   @default(false)
   image         String?
+  role          UserRole  @default(municipal)
+  active        Boolean   @default(true)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   sessions      Session[]

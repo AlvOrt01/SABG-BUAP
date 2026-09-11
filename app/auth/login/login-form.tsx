@@ -42,7 +42,16 @@ export function LoginForm() {
       return;
     }
 
-    router.push("/dashboard");
+    const destinationResponse = await fetch(
+      "/api/auth/destination",
+      { cache: "no-store" }
+    );
+
+    const destination = destinationResponse.ok
+      ? await destinationResponse.json()
+      : { redirectTo: "/dashboard" };
+
+    router.push(destination.redirectTo);
     router.refresh();
   }
 
