@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 import {
     CheckCircle2,
     Clock3,
@@ -9,22 +11,26 @@ import {
     ShieldCheck,
 } from "lucide-react";
 
-import { MunicipalWorkflowProgress } from "@/components/dashboard/progress/municipal-workflow-progress";
 import { trackingMock } from "@/config/tracking";
 import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
 
 export function TrackingContent() {
     const {
         isUnlocked,
+        completeChapter,
     } = useMunicipalProgress();
 
     const trackingUnlocked =
         isUnlocked("tracking");
 
+    useEffect(() => {
+        if (trackingUnlocked) {
+            completeChapter(2);
+        }
+    }, [completeChapter, trackingUnlocked]);
+
     return (
         <>
-            <MunicipalWorkflowProgress />
-
             {!trackingUnlocked ? (
                 <TrackingLocked />
             ) : (

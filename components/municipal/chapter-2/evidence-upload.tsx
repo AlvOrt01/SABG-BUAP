@@ -15,12 +15,9 @@ import {
     UploadCloud,
 } from "lucide-react";
 
-import { WorkflowProgress } from "@/components/dashboard/progress/workflow-progress";
-import { sabgWorkflow } from "@/config/workflow";
 import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
 
 import type { EvidenceFile } from "@/types/evidence";
-import { MunicipalProgressHeader } from "@/components/dashboard/progress/municipal-progress-header";
 
 const MAX_FILE_SIZE =
     5 * 1024 * 1024;
@@ -183,8 +180,6 @@ export function EvidenceUpload() {
     if (!evidenceUnlocked) {
         return (
             <>
-                <MunicipalProgressHeader />
-
                 <main className="flex-1 bg-background p-6 lg:p-8">
                     <section className="mx-auto max-w-3xl rounded-2xl border border-border bg-surface p-8 text-center shadow-sm">
                         <h1 className="text-2xl font-bold text-text-primary">
@@ -215,11 +210,6 @@ export function EvidenceUpload() {
     if (evidenceCompleted) {
         return (
             <>
-                <WorkflowProgress
-                    steps={sabgWorkflow}
-                    currentStep="review"
-                />
-
                 <EvidenceCompleted />
             </>
         );
@@ -227,11 +217,6 @@ export function EvidenceUpload() {
 
     return (
         <>
-            <WorkflowProgress
-                steps={sabgWorkflow}
-                currentStep="evidence"
-            />
-
             <main className="flex-1 bg-background px-4 py-6 md:px-6 md:py-8 lg:p-8">
                 <div className="mx-auto max-w-6xl space-y-6">
                     <section className="rounded-2xl border border-border bg-surface p-6 shadow-sm md:p-8">
@@ -453,7 +438,7 @@ function EvidenceCompleted() {
                     type="button"
                     onClick={() =>
                         router.push(
-                            "/municipal/tracking"
+                            "/seguimiento"
                         )
                     }
                     className="mt-6 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"

@@ -18,10 +18,8 @@ import {
     Save,
 } from "lucide-react";
 
-import { MunicipalWorkflowProgress } from "@/components/dashboard/progress/municipal-workflow-progress";
 import { municipalInstrumentMock } from "@/config/instrument";
 import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
-import { MunicipalProgressHeader } from "@/components/dashboard/progress/municipal-progress-header";
 
 const STORAGE_KEY =
     "sabg-instrument-draft";
@@ -153,9 +151,6 @@ export function InstrumentForm() {
 
     return (
         <>
-            {/* La barra se renderiza UNA sola vez */}
-            <MunicipalProgressHeader />
-
             {!instrumentUnlocked ? (
                 <InstrumentLocked />
             ) : instrumentCompleted ? (

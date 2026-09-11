@@ -15,6 +15,8 @@ import {
   Send,
 } from "lucide-react";
 
+import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
+
 const STORAGE_KEY =
   "sabg-chapter-1-self-assessment";
 
@@ -103,6 +105,8 @@ const initialReflection: ReflectionAnswers = {
 };
 
 export function SelfAssessmentForm() {
+  const { completeChapter } = useMunicipalProgress();
+
   const [
     assessment,
     setAssessment,
@@ -267,6 +271,7 @@ export function SelfAssessmentForm() {
       STORAGE_KEY
     );
 
+    completeChapter(1);
     setSubmitted(true);
   }
 

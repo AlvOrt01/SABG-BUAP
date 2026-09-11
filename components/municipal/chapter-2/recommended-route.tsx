@@ -19,8 +19,6 @@ import type {
     RoutePriority,
     RouteResource,
 } from "@/types/route";
-import { MunicipalWorkflowProgress } from "@/components/dashboard/progress/municipal-workflow-progress";
-import { MunicipalProgressHeader } from "@/components/dashboard/progress/municipal-progress-header";
 
 export function RecommendedRoute() {
     const router = useRouter();
@@ -44,8 +42,6 @@ export function RecommendedRoute() {
 
     return (
         <>
-            <MunicipalProgressHeader />
-
             <main className="flex-1 bg-background px-4 py-6 md:px-6 md:py-8 lg:p-8">
                 <div className="mx-auto max-w-7xl space-y-6">
                     {/* Encabezado */}

@@ -6,16 +6,21 @@ import { municipalNavigationBase } from "@/config/navigation/municipal-navigatio
 import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
 
 export function useMunicipalNavigation() {
-    const { isUnlocked } = useMunicipalProgress();
+    const {
+        isUnlocked,
+        isChapterUnlocked,
+    } = useMunicipalProgress();
 
     return useMemo(() => {
         return {
             items: municipalNavigationBase.items.map((item) => ({
                 ...item,
 
-                disabled: item.step
-                    ? !isUnlocked(item.step)
-                    : item.disabled,
+                disabled: item.chapter
+                    ? !isChapterUnlocked(item.chapter)
+                    : item.step
+                        ? !isUnlocked(item.step)
+                        : item.disabled,
 
                 children: item.children?.map((child) => ({
                     ...child,
@@ -26,5 +31,5 @@ export function useMunicipalNavigation() {
                 })),
             })),
         };
-    }, [isUnlocked]);
+    }, [isChapterUnlocked, isUnlocked]);
 }

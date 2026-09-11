@@ -66,6 +66,11 @@ export const municipalNavigationBase: NavigationConfig = {
                     label: "Evidencias",
                     path: routes.chapter2.evidence,
                 },
+                {
+                    label: "Seguimiento",
+                    path: routes.tracking,
+                    step: "tracking",
+                },
             ],
         },
 
@@ -224,11 +229,5 @@ export const municipalNavigationBase: NavigationConfig = {
             icon: "resources",
         },
 
-        {
-            id: "tracking",
-            label: "Seguimiento",
-            path: routes.tracking,
-            icon: "tracking",
-        },
     ],
 };

@@ -3,21 +3,21 @@
 import {
   Building2,
   Bot,
+  BookOpen,
+  ArrowRight,
 } from "lucide-react";
 
-import { MunicipalWorkflowProgress } from "@/components/dashboard/progress/municipal-workflow-progress";
 import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
 
 import { StartDiagnosisButton } from "@/components/municipal/dashboard/start-diagnosis-button";
-import { MunicipalProgressHeader } from "@/components/dashboard/progress/municipal-progress-header";
+import Link from "next/link";
+import { routes } from "@/config/routes";
 
 export function MunicipalDashboardContent() {
   const { currentStep } = useMunicipalProgress();
 
   return (
     <>
-      <MunicipalProgressHeader />
-
       <main className="flex-1 bg-background px-4 py-6 md:px-6 md:py-8 lg:p-8">
         <div className="mx-auto max-w-7xl space-y-8">
           {/* Bienvenida */}
@@ -35,10 +35,44 @@ export function MunicipalDashboardContent() {
                   y transparente.
                 </p>
 
-                <div className="mt-8">
+                <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                  <Link
+                    href={routes.chapter1.home}
+                    className="flex items-center justify-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-semibold text-text-primary transition hover:border-primary hover:text-primary"
+                  >
+                    <BookOpen className="h-4 w-4" />
+                    Explorar capítulo 1
+                  </Link>
+
                   <StartDiagnosisButton />
                 </div>
               </div>
+            </div>
+          </section>
+
+          <section className="rounded-2xl border border-primary/20 bg-primary-light p-6 md:p-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                  Tu progreso actual
+                </p>
+
+                <p className="mt-2 text-lg font-semibold text-text-primary">
+                  {currentStep === "not-started"
+                    ? "Aún no has iniciado el diagnóstico"
+                    : "Capítulo 2 · Diagnóstico municipal"}
+                </p>
+              </div>
+
+              {currentStep !== "not-started" && (
+                <Link
+                  href={routes.chapter2.home}
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-primary"
+                >
+                  Continuar proceso
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              )}
             </div>
           </section>
 

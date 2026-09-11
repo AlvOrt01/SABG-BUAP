@@ -13,6 +13,7 @@ import type { ReactNode } from "react";
 import type { MunicipalStep } from "@/types/workflow";
 
 const STORAGE_KEY = "sabg-current-step";
+const CHAPTER_STORAGE_KEY = "sabg-unlocked-chapter";
 
 const stepOrder: MunicipalStep[] = [
     "not-started",
@@ -25,11 +26,15 @@ const stepOrder: MunicipalStep[] = [
 
 type MunicipalProgressContextValue = {
     currentStep: MunicipalStep;
+    unlockedChapter: number;
 
     isUnlocked: (step: MunicipalStep) => boolean;
+    isChapterUnlocked: (chapter: number) => boolean;
     isCompleted: (step: MunicipalStep) => boolean;
 
     completeStep: (step: MunicipalStep) => void;
+    completeChapter: (chapter: number) => void;
+    unlockChapter: (chapter: number) => void;
 
     setStep: (step: MunicipalStep) => void;
 };
@@ -50,6 +55,8 @@ export function MunicipalProgressProvider({
 }: MunicipalProgressProviderProps) {
     const [currentStep, setCurrentStep] =
         useState<MunicipalStep>("not-started");
+    const [unlockedChapter, setUnlockedChapter] =
+        useState(1);
 
     const [hydrated, setHydrated] = useState(false);
 
@@ -58,6 +65,17 @@ export function MunicipalProgressProvider({
 
         if (saved && isMunicipalStep(saved)) {
             setCurrentStep(saved);
+        }
+
+        const savedChapter = Number(
+            localStorage.getItem(CHAPTER_STORAGE_KEY)
+        );
+
+        if (
+            Number.isInteger(savedChapter) &&
+            savedChapter >= 1
+        ) {
+            setUnlockedChapter(savedChapter);
         }
 
         setHydrated(true);
@@ -105,6 +123,13 @@ export function MunicipalProgressProvider({
                 stepOrder.indexOf(currentStep);
         },
         [currentStep]
+    );
+
+    const isChapterUnlocked = useCallback(
+        (chapter: number) => {
+            return chapter <= unlockedChapter;
+        },
+        [unlockedChapter]
     );
 
     const isCompleted = useCallback(
@@ -158,19 +183,65 @@ export function MunicipalProgressProvider({
         [currentStep, persistStep]
     );
 
+    const completeChapter = useCallback(
+        (chapter: number) => {
+            setUnlockedChapter((previousChapter) => {
+                if (chapter !== previousChapter) {
+                    return previousChapter;
+                }
+
+                const nextChapter = chapter + 1;
+
+                localStorage.setItem(
+                    CHAPTER_STORAGE_KEY,
+                    String(nextChapter)
+                );
+
+                return nextChapter;
+            });
+        },
+        []
+    );
+
+    const unlockChapter = useCallback(
+        (chapter: number) => {
+            setUnlockedChapter((previousChapter) => {
+                if (chapter <= previousChapter) {
+                    return previousChapter;
+                }
+
+                localStorage.setItem(
+                    CHAPTER_STORAGE_KEY,
+                    String(chapter)
+                );
+
+                return chapter;
+            });
+        },
+        []
+    );
+
     const value = useMemo(
         () => ({
             currentStep,
+            unlockedChapter,
             isUnlocked,
+            isChapterUnlocked,
             isCompleted,
             completeStep,
+            completeChapter,
+            unlockChapter,
             setStep: persistStep,
         }),
         [
             currentStep,
+            unlockedChapter,
             isUnlocked,
+            isChapterUnlocked,
             isCompleted,
             completeStep,
+            completeChapter,
+            unlockChapter,
             persistStep,
         ]
     );

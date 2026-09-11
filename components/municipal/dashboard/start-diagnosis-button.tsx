@@ -10,14 +10,16 @@ export function StartDiagnosisButton() {
     const {
         currentStep,
         setStep,
+        unlockChapter,
     } = useMunicipalProgress();
 
     function handleClick() {
         if (currentStep === "not-started") {
+            unlockChapter(2);
             setStep("diagnosis");
         }
 
-        router.push("/municipal/diagnosis");
+        router.push("/capitulo-2/diagnostico");
     }
 
     return (
