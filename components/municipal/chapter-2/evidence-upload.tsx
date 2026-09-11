@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
+import { MunicipalWorkflowProgress } from "@/components/dashboard/progress/municipal-workflow-progress";
 
 import type { EvidenceFile } from "@/types/evidence";
 
@@ -173,13 +174,14 @@ export function EvidenceUpload() {
         completeStep("evidence");
 
         router.push(
-            "/municipal/tracking"
+            "/seguimiento"
         );
     }
 
     if (!evidenceUnlocked) {
         return (
             <>
+                <MunicipalWorkflowProgress />
                 <main className="flex-1 bg-background p-6 lg:p-8">
                     <section className="mx-auto max-w-3xl rounded-2xl border border-border bg-surface p-8 text-center shadow-sm">
                         <h1 className="text-2xl font-bold text-text-primary">
@@ -194,7 +196,7 @@ export function EvidenceUpload() {
                             type="button"
                             onClick={() =>
                                 router.push(
-                                    "/municipal/instrument"
+                                    "/capitulo-2/instrumento"
                                 )
                             }
                             className="mt-6 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white"
@@ -210,6 +212,7 @@ export function EvidenceUpload() {
     if (evidenceCompleted) {
         return (
             <>
+                <MunicipalWorkflowProgress />
                 <EvidenceCompleted />
             </>
         );
@@ -217,6 +220,7 @@ export function EvidenceUpload() {
 
     return (
         <>
+            <MunicipalWorkflowProgress />
             <main className="flex-1 bg-background px-4 py-6 md:px-6 md:py-8 lg:p-8">
                 <div className="mx-auto max-w-6xl space-y-6">
                     <section className="rounded-2xl border border-border bg-surface p-6 shadow-sm md:p-8">

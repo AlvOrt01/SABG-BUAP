@@ -19,12 +19,12 @@ import type {
     RoutePriority,
     RouteResource,
 } from "@/types/route";
+import { MunicipalWorkflowProgress } from "@/components/dashboard/progress/municipal-workflow-progress";
 
 export function RecommendedRoute() {
     const router = useRouter();
 
     const {
-        currentStep,
         isCompleted,
         completeStep,
     } = useMunicipalProgress();
@@ -37,11 +37,12 @@ export function RecommendedRoute() {
             completeStep("route");
         }
 
-        router.push("/municipal/instrument");
+        router.push("/capitulo-2/instrumento");
     }
 
     return (
         <>
+            <MunicipalWorkflowProgress />
             <main className="flex-1 bg-background px-4 py-6 md:px-6 md:py-8 lg:p-8">
                 <div className="mx-auto max-w-7xl space-y-6">
                     {/* Encabezado */}

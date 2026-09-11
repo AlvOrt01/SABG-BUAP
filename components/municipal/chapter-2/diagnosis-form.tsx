@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { CheckCircle2, FileText } from "lucide-react";
 
 import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
+import { MunicipalWorkflowProgress } from "@/components/dashboard/progress/municipal-workflow-progress";
 
 export function DiagnosisForm() {
     const router = useRouter();
@@ -60,15 +61,22 @@ export function DiagnosisForm() {
 
         completeStep("diagnosis");
 
-        router.push("/municipal/route");
+        router.push("/capitulo-2/ruta");
     }
 
     if (diagnosisCompleted) {
-        return <DiagnosisCompleted />;
+        return (
+            <>
+                <MunicipalWorkflowProgress />
+                <DiagnosisCompleted />
+            </>
+        );
     }
 
     return (
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <>
+            <MunicipalWorkflowProgress />
+            <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
             <section className="rounded-2xl border border-border bg-surface shadow-sm">
                 <header className="border-b border-border px-6 py-6">
                     <p className="text-xs font-semibold uppercase tracking-wide text-primary">
@@ -299,7 +307,8 @@ export function DiagnosisForm() {
                     </div>
                 </section>
             </aside>
-        </div>
+            </div>
+        </>
     );
 }
 
@@ -325,7 +334,7 @@ function DiagnosisCompleted() {
                 <button
                     type="button"
                     onClick={() =>
-                        router.push("/municipal/route")
+                        router.push("/capitulo-2/ruta")
                     }
                     className="mt-6 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
                 >

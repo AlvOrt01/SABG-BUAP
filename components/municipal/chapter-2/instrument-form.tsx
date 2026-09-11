@@ -20,6 +20,7 @@ import {
 
 import { municipalInstrumentMock } from "@/config/instrument";
 import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
+import { MunicipalWorkflowProgress } from "@/components/dashboard/progress/municipal-workflow-progress";
 
 const STORAGE_KEY =
     "sabg-instrument-draft";
@@ -145,12 +146,13 @@ export function InstrumentForm() {
         );
 
         router.push(
-            "/municipal/evidence"
+            "/capitulo-2/evidencias"
         );
     }
 
     return (
         <>
+            <MunicipalWorkflowProgress />
             {!instrumentUnlocked ? (
                 <InstrumentLocked />
             ) : instrumentCompleted ? (
@@ -345,7 +347,7 @@ function InstrumentLocked() {
                     type="button"
                     onClick={() =>
                         router.push(
-                            "/municipal/route"
+                            "/capitulo-2/ruta"
                         )
                     }
                     className="mt-6 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white"
@@ -379,7 +381,7 @@ function InstrumentCompleted() {
                     type="button"
                     onClick={() =>
                         router.push(
-                            "/municipal/evidence"
+                            "/capitulo-2/evidencias"
                         )
                     }
                     className="mt-6 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"

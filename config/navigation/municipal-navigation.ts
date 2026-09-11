@@ -53,18 +53,22 @@ export const municipalNavigationBase: NavigationConfig = {
                 {
                     label: "Diagnóstico",
                     path: routes.chapter2.diagnosis,
+                    step: "diagnosis",
                 },
                 {
                     label: "Ruta del diagnóstico",
                     path: routes.chapter2.route,
+                    step: "route",
                 },
                 {
                     label: "Instrumento",
                     path: routes.chapter2.instrument,
+                    step: "instrument",
                 },
                 {
                     label: "Evidencias",
                     path: routes.chapter2.evidence,
+                    step: "evidence",
                 },
                 {
                     label: "Seguimiento",

@@ -307,12 +307,11 @@ export function SelfAssessmentForm() {
             <div className="min-w-56 rounded-xl border border-border bg-background p-4">
               <div className="flex items-center justify-between gap-4">
                 <p className="text-xs font-semibold text-text-secondary">
-                  Componentes evaluados
+                  Progreso
                 </p>
 
                 <p className="text-sm font-bold text-primary">
-                  {completedComponents}/
-                  {components.length}
+                  {progress}%
                 </p>
               </div>
 
@@ -457,7 +456,7 @@ export function SelfAssessmentForm() {
                                 option.value
                               )
                             }
-                            className="h-4 w-4 accent-primary"
+                            className="h-4 w-4 appearance-none rounded-full border-2 border-text-muted bg-surface transition-colors checked:border-primary checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
                           />
 
                           <span className="sr-only">
@@ -534,7 +533,7 @@ export function SelfAssessmentForm() {
                                   option.value
                                 )
                               }
-                              className="h-4 w-4 accent-primary"
+                              className="h-4 w-4 appearance-none rounded-full border-2 border-text-muted bg-surface transition-colors checked:border-primary checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
                             />
 
                             {

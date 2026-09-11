@@ -13,6 +13,7 @@ import {
 
 import { trackingMock } from "@/config/tracking";
 import { useMunicipalProgress } from "@/contexts/municipal-progress-context";
+import { MunicipalWorkflowProgress } from "@/components/dashboard/progress/municipal-workflow-progress";
 
 export function TrackingContent() {
     const {
@@ -31,6 +32,7 @@ export function TrackingContent() {
 
     return (
         <>
+            <MunicipalWorkflowProgress />
             {!trackingUnlocked ? (
                 <TrackingLocked />
             ) : (
