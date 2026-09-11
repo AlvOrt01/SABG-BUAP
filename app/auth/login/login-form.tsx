@@ -42,7 +42,7 @@ export function LoginForm() {
       return;
     }
 
-    router.push("/municipal/dashboard");
+    router.push("/dashboard");
     router.refresh();
   }
 

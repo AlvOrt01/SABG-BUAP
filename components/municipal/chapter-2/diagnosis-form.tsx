@@ -214,7 +214,7 @@ export function DiagnosisForm() {
                     </FormField>
 
                     {/* Problema */}
-                    <FormField label="Principal problemática detectada">
+                    {/* <FormField label="Principal problemática detectada">
                         <textarea
                             required
                             name="problem"
@@ -224,7 +224,7 @@ export function DiagnosisForm() {
                             placeholder="Describe el principal problema, incumplimiento o área de oportunidad detectada..."
                             className="w-full resize-none rounded-lg border border-border bg-background px-4 py-3 text-sm text-text-primary outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
                         />
-                    </FormField>
+                    </FormField> */}
 
                     {/* Observaciones */}
                     <FormField label="Observaciones adicionales">

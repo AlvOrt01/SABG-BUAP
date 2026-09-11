@@ -8,16 +8,14 @@ import {
   Gavel,
   Landmark,
   Search,
-  ShieldCheck,
-  Sparkles,
+  Scale,
 } from "lucide-react";
 
 type ResourceCategory =
-  | "guide"
-  | "constitutional"
-  | "municipal"
-  | "transparency"
-  | "ethics";
+  | "federal-constitutional"
+  | "state"
+  | "municipal-transparency"
+  | "planning-development";
 
 type ChapterResource = {
   id: string;
@@ -25,202 +23,181 @@ type ChapterResource = {
   description: string;
   category: ResourceCategory;
   fileName: string;
-  available?: boolean;
 };
 
 const categoryLabels: Record<
   ResourceCategory,
   string
 > = {
-  guide: "Guía y autoevaluación",
-  constitutional: "Marco constitucional",
-  municipal:
-    "Marco municipal y administrativo",
-  transparency:
-    "Transparencia y rendición de cuentas",
-  ethics: "Integridad y ética",
+  "federal-constitutional":
+    "Marco Constitucional Federal",
+
+  state:
+    "Marco Estatal",
+
+  "municipal-transparency":
+    "Marco Municipal y Transparencia",
+
+  "planning-development":
+    "Marco de Planeación y Desarrollo",
 };
 
 const categoryIcons: Record<
   ResourceCategory,
   React.ElementType
 > = {
-  guide: BookOpen,
-  constitutional: Landmark,
-  municipal: Gavel,
-  transparency: ShieldCheck,
-  ethics: Sparkles,
+  "federal-constitutional": Landmark,
+  state: Scale,
+  "municipal-transparency": Gavel,
+  "planning-development": BookOpen,
 };
 
 const resources: ChapterResource[] = [
+  // =====================================================
+  // MARCO CONSTITUCIONAL FEDERAL
+  // =====================================================
+
   {
-    id: "guide-chapter-1",
-    title:
-      "Guía SABG-BUAP - Capítulo 1",
-    description:
-      "Contenido del capítulo sobre Buen Gobierno y Gobernanza Municipal.",
-    category: "guide",
-    fileName:
-      "01-guia-sabg-capitulo-1.pdf",
-  },
-  {
-    id: "self-assessment",
-    title:
-      "Formato de Autoevaluación - Capítulo 1",
-    description:
-      "Formato de referencia para la autoevaluación de los componentes del Buen Gobierno.",
-    category: "guide",
-    fileName:
-      "02-formato-autoevaluacion-capitulo-1.pdf",
-  },
-  {
-    id: "constitution-mexico",
+    id: "federal-constitution",
     title:
       "Constitución Política de los Estados Unidos Mexicanos",
     description:
-      "Marco constitucional federal relacionado con el municipio, transparencia, seguridad pública y rendición de cuentas.",
-    category: "constitutional",
+      "Marco constitucional federal del Buen Gobierno y del municipio libre. Para este capítulo son especialmente relevantes los artículos 2, 3, 6, 21, 73, 115 y 134.",
+    category:
+      "federal-constitutional",
     fileName:
-      "03-constitucion-politica-estados-unidos-mexicanos.pdf",
+      "Constitucion Politica Estados Unidos Mexicanos.pdf",
   },
+
+  // =====================================================
+  // MARCO ESTATAL
+  // =====================================================
+
   {
-    id: "constitution-puebla",
+    id: "puebla-constitution",
     title:
       "Constitución Política del Estado Libre y Soberano de Puebla",
     description:
-      "Marco constitucional estatal relacionado con la organización y funcionamiento municipal.",
-    category: "constitutional",
+      "Marco constitucional del Estado de Puebla. El capítulo destaca disposiciones relacionadas con el municipio libre, su administración, servicios públicos y acceso a la información.",
+    category: "state",
     fileName:
-      "04-constitucion-politica-estado-puebla.pdf",
+      "Constitucion Politica Puebla Jun 5 2025.pdf",
   },
+
+  // =====================================================
+  // MARCO MUNICIPAL Y TRANSPARENCIA
+  // =====================================================
+
   {
     id: "municipal-law",
     title:
       "Ley Orgánica Municipal del Estado de Puebla",
     description:
-      "Regula la organización, funcionamiento, competencias y administración de los ayuntamientos.",
-    category: "municipal",
+      "Regula la organización, funcionamiento, competencias, autoridades y administración de los municipios del Estado de Puebla.",
+    category:
+      "municipal-transparency",
     fileName:
-      "05-ley-organica-municipal-puebla.pdf",
+      "Recursos Cap 1.pdf",
   },
+
   {
-    id: "planning-law",
-    title: "Ley de Planeación",
-    description:
-      "Marco federal relacionado con los procesos de planeación y coordinación institucional.",
-    category: "municipal",
-    fileName:
-      "06-ley-planeacion.pdf",
-  },
-  {
-    id: "human-settlements",
+    id: "general-transparency-law",
     title:
-      "Ley General de Asentamientos Humanos, Ordenamiento Territorial y Desarrollo Urbano",
+      "Ley General de Transparencia y Acceso a la Información Pública",
     description:
-      "Normativa vinculada con el ordenamiento territorial y el desarrollo urbano.",
-    category: "municipal",
+      "Marco general en materia de transparencia, acceso a la información pública y rendición de cuentas.",
+    category:
+      "municipal-transparency",
     fileName:
-      "07-ley-general-asentamientos-humanos.pdf",
+      "Ley General de Transparencia.pdf",
   },
+
   {
-    id: "environment",
-    title:
-      "Ley General del Equilibrio Ecológico y la Protección al Ambiente",
-    description:
-      "Normativa ambiental relacionada con competencias y responsabilidades municipales.",
-    category: "municipal",
-    fileName:
-      "08-ley-general-equilibrio-ecologico.pdf",
-  },
-  {
-    id: "waters",
-    title:
-      "Ley de Aguas Nacionales",
-    description:
-      "Normativa relacionada con la gestión y prestación de servicios vinculados con el agua.",
-    category: "municipal",
-    fileName:
-      "09-ley-aguas-nacionales.pdf",
-  },
-  {
-    id: "agrarian",
-    title:
-      "Ley Agraria",
-    description:
-      "Marco federal relacionado con el régimen agrario y la coordinación institucional.",
-    category: "municipal",
-    fileName:
-      "10-ley-agraria.pdf",
-  },
-  {
-    id: "forest",
-    title:
-      "Ley General de Desarrollo Forestal Sustentable",
-    description:
-      "Normativa relacionada con la conservación y desarrollo forestal sustentable.",
-    category: "municipal",
-    fileName:
-      "11-ley-general-desarrollo-forestal-sustentable.pdf",
-  },
-  {
-    id: "responsibilities",
+    id: "administrative-responsibilities",
     title:
       "Ley General de Responsabilidades Administrativas",
     description:
-      "Marco normativo sobre responsabilidades e integridad de las personas servidoras públicas.",
-    category: "municipal",
+      "Establece principios, obligaciones y responsabilidades aplicables a las personas servidoras públicas, así como mecanismos relacionados con integridad y ética pública.",
+    category:
+      "municipal-transparency",
     fileName:
-      "12-ley-general-responsabilidades-administrativas.pdf",
+      "General Administrative Responsibilities.pdf",
   },
+
+  // =====================================================
+  // MARCO DE PLANEACIÓN Y DESARROLLO
+  // =====================================================
+
   {
-    id: "transparency-law",
+    id: "puebla-planning-law",
     title:
-      "Ley de Transparencia y Acceso a la Información Pública del Estado de Puebla",
+      "Ley de Planeación para el Desarrollo del Estado de Puebla",
     description:
-      "Normativa estatal en materia de transparencia y acceso a la información pública.",
-    category: "transparency",
+      "Regula el Sistema Estatal de Planeación Democrática y los procesos e instrumentos de planeación para el desarrollo del Estado.",
+    category:
+      "planning-development",
     fileName:
-      "13-ley-transparencia-puebla.pdf",
+      "Puebla Planning Law Aug 25 2023.pdf",
   },
+
   {
-    id: "technical-guidelines",
+    id: "puebla-urban-development",
     title:
-      "Lineamientos Técnicos Generales de Obligaciones de Transparencia",
+      "Ley de Ordenamiento Territorial y Desarrollo Urbano del Estado de Puebla",
     description:
-      "Lineamientos para la publicación, homologación y estandarización de obligaciones de transparencia.",
-    category: "transparency",
+      "Marco estatal relacionado con ordenamiento territorial, desarrollo urbano y competencias institucionales.",
+    category:
+      "planning-development",
     fileName:
-      "14-lineamientos-tecnicos-generales-transparencia.pdf",
+      "Puebla Urban Development Law.pdf",
   },
+
   {
-    id: "technical-criteria",
+    id: "environmental-law",
     title:
-      "Criterios Técnicos Generales de Transparencia del Estado de Puebla",
+      "Ley General del Equilibrio Ecológico y la Protección al Ambiente",
     description:
-      "Criterios técnicos aplicables a la información relacionada con obligaciones de transparencia.",
-    category: "transparency",
+      "Regula aspectos de protección ambiental, desarrollo sustentable y competencias concurrentes de Federación, entidades federativas y municipios.",
+    category:
+      "planning-development",
     fileName:
-      "15-criterios-tecnicos-generales-transparencia-puebla.pdf",
+      "Ley General Equilibrio Ecológico.pdf",
   },
+
   {
-    id: "classification-guidelines",
+    id: "national-waters-law",
     title:
-      "Lineamientos Generales en materia de clasificación y desclasificación",
+      "Ley de Aguas Nacionales",
     description:
-      "Lineamientos para clasificación, desclasificación y elaboración de versiones públicas.",
-    category: "transparency",
+      "Marco federal relacionado con el uso, aprovechamiento, distribución y gestión de las aguas nacionales.",
+    category:
+      "planning-development",
     fileName:
-      "16-lineamientos-clasificacion-desclasificacion.pdf",
+      "Ley Aguas Nacionales.pdf",
   },
+
   {
-    id: "ethics-code",
+    id: "agrarian-law",
     title:
-      "Código de Ética e Integridad para un Buen Gobierno",
+      "Ley Agraria",
     description:
-      "Documento de referencia sobre principios, valores y reglas de conducta de las personas servidoras públicas.",
-    category: "ethics",
+      "Marco federal relacionado con materia agraria y coordinación entre Federación, entidades federativas y municipios.",
+    category:
+      "planning-development",
     fileName:
-      "17-codigo-etica-integridad-buen-gobierno.pdf",
+      "Ley Agraria Recursos Cap 1.pdf",
+  },
+
+  {
+    id: "forestry-law",
+    title:
+      "Ley General de Desarrollo Forestal Sustentable",
+    description:
+      "Regula el manejo y aprovechamiento sustentable de los recursos forestales y distribuye competencias entre los tres órdenes de gobierno.",
+    category:
+      "planning-development",
+    fileName:
+      "Ley General Desarrollo Forestal Sustentable.pdf",
   },
 ];
 
@@ -259,6 +236,28 @@ export function ResourcesContent() {
     categoryLabels
   ) as ResourceCategory[];
 
+  const constitutionalCount =
+    resources.filter(
+      (resource) =>
+        resource.category ===
+        "federal-constitutional" ||
+        resource.category === "state"
+    ).length;
+
+  const municipalCount =
+    resources.filter(
+      (resource) =>
+        resource.category ===
+        "municipal-transparency"
+    ).length;
+
+  const planningCount =
+    resources.filter(
+      (resource) =>
+        resource.category ===
+        "planning-development"
+    ).length;
+
   return (
     <main className="flex-1 bg-background px-4 py-6 md:px-6 md:py-8 lg:p-8">
       <div className="mx-auto max-w-7xl space-y-8">
@@ -273,13 +272,12 @@ export function ResourcesContent() {
           </h1>
 
           <p className="mt-2 max-w-3xl text-sm leading-6 text-text-secondary">
-            Consulta los documentos que
-            complementan el capítulo de
-            Preparación y Autoevaluación.
-            Estos recursos sirven como
-            referencia para comprender los
-            principios del Buen Gobierno y
-            su marco jurídico municipal.
+            Consulta los documentos normativos que
+            complementan el capítulo de Preparación y
+            Autoevaluación. Estos recursos permiten
+            comprender los principios del Buen Gobierno
+            y el marco jurídico relacionado con la
+            gestión municipal.
           </p>
 
           <div className="relative mt-6 max-w-xl">
@@ -302,47 +300,23 @@ export function ResourcesContent() {
         {/* Resumen */}
         <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <SummaryCard
-            label="Recursos"
-            value={
-              resources.length
-            }
+            label="Total de recursos"
+            value={resources.length}
           />
 
           <SummaryCard
-            label="Constitucionales"
-            value={
-              resources.filter(
-                (resource) =>
-                  resource.category ===
-                  "constitutional"
-              ).length
-            }
+            label="Marco constitucional"
+            value={constitutionalCount}
           />
 
           <SummaryCard
-            label="Normativos"
-            value={
-              resources.filter(
-                (resource) =>
-                  resource.category ===
-                  "municipal" ||
-                  resource.category ===
-                  "transparency"
-              ).length
-            }
+            label="Municipal y transparencia"
+            value={municipalCount}
           />
 
           <SummaryCard
-            label="Guía y apoyo"
-            value={
-              resources.filter(
-                (resource) =>
-                  resource.category ===
-                  "guide" ||
-                  resource.category ===
-                  "ethics"
-              ).length
-            }
+            label="Planeación y desarrollo"
+            value={planningCount}
           />
         </section>
 
@@ -391,21 +365,17 @@ export function ResourcesContent() {
                       {
                         categoryResources.length
                       }{" "}
-                      {
-                        categoryResources.length ===
-                          1
-                          ? "recurso"
-                          : "recursos"
-                      }
+                      {categoryResources.length ===
+                        1
+                        ? "recurso"
+                        : "recursos"}
                     </p>
                   </div>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
                   {categoryResources.map(
-                    (
-                      resource
-                    ) => (
+                    (resource) => (
                       <ResourceCard
                         key={
                           resource.id
@@ -422,6 +392,7 @@ export function ResourcesContent() {
           }
         )}
 
+        {/* Sin resultados */}
         {filteredResources.length ===
           0 && (
             <section className="rounded-2xl border border-border bg-surface p-8 text-center shadow-sm">
@@ -449,7 +420,9 @@ function ResourceCard({
   resource: ChapterResource;
 }) {
   const href =
-    `/resources/chapter-1/${resource.fileName}`;
+    `/resources/chapter-1/${encodeURIComponent(
+      resource.fileName
+    )}`;
 
   return (
     <article className="flex flex-col rounded-2xl border border-border bg-surface p-5 shadow-sm transition hover:shadow-md">
@@ -460,7 +433,7 @@ function ResourceCard({
 
         <div className="min-w-0">
           <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-            PDF
+            Documento PDF
           </p>
 
           <h3 className="mt-1 font-semibold leading-6 text-text-primary">

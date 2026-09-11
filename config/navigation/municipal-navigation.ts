@@ -2,12 +2,14 @@ import type {
     NavigationConfig,
 } from "@/types/navigation";
 
+import { routes } from "@/config/routes";
+
 export const municipalNavigationBase: NavigationConfig = {
     items: [
         {
             id: "dashboard",
             label: "Dashboard",
-            path: "/dashboard",
+            path: routes.dashboard,
             icon: "home",
         },
 
@@ -16,16 +18,21 @@ export const municipalNavigationBase: NavigationConfig = {
             label: "Capítulo 1",
             description:
                 "Preparación y Autoevaluación",
+            path: routes.chapter1.home,
             icon: "chapter",
             chapter: 1,
             children: [
                 {
+                    label: "Inicio",
+                    path: routes.chapter1.home,
+                },
+                {
                     label: "Recursos",
-                    path: "/capitulo-1/recursos",
+                    path: routes.chapter1.resources,
                 },
                 {
                     label: "Autoevaluación",
-                    path: "/capitulo-1/autoevaluacion",
+                    path: routes.chapter1.selfAssessment,
                 },
             ],
         },
@@ -35,24 +42,29 @@ export const municipalNavigationBase: NavigationConfig = {
             label: "Capítulo 2",
             description:
                 "Diagnóstico Municipal",
+            path: routes.chapter2.home,
             icon: "chapter",
             chapter: 2,
             children: [
                 {
+                    label: "Inicio",
+                    path: routes.chapter2.home,
+                },
+                {
                     label: "Diagnóstico",
-                    path: "/capitulo-2/diagnostico",
+                    path: routes.chapter2.diagnosis,
                 },
                 {
                     label: "Ruta del diagnóstico",
-                    path: "/capitulo-2/ruta",
+                    path: routes.chapter2.route,
                 },
                 {
                     label: "Instrumento",
-                    path: "/capitulo-2/instrumento",
+                    path: routes.chapter2.instrument,
                 },
                 {
                     label: "Evidencias",
-                    path: "/capitulo-2/evidencias",
+                    path: routes.chapter2.evidence,
                 },
             ],
         },
@@ -62,20 +74,25 @@ export const municipalNavigationBase: NavigationConfig = {
             label: "Capítulo 3",
             description:
                 "Planeación Estratégica",
+            path: routes.chapter3.home,
             icon: "chapter",
             chapter: 3,
             children: [
                 {
+                    label: "Inicio",
+                    path: routes.chapter3.home,
+                },
+                {
                     label: "Plan de Mejora",
-                    path: "/capitulo-3/plan-mejora",
+                    path: routes.chapter3.improvementPlan,
                 },
                 {
                     label: "Plan de Acción",
-                    path: "/capitulo-3/plan-accion",
+                    path: routes.chapter3.actionPlan,
                 },
                 {
                     label: "Verificación de Cierre",
-                    path: "/capitulo-3/verificacion-cierre",
+                    path: routes.chapter3.closureVerification,
                 },
             ],
         },
@@ -85,16 +102,21 @@ export const municipalNavigationBase: NavigationConfig = {
             label: "Capítulo 4",
             description:
                 "Gestión de Riesgos",
+            path: routes.chapter4.home,
             icon: "chapter",
             chapter: 4,
             children: [
                 {
+                    label: "Inicio",
+                    path: routes.chapter4.home,
+                },
+                {
                     label: "Control Interno",
-                    path: "/capitulo-4/control-interno",
+                    path: routes.chapter4.internalControl,
                 },
                 {
                     label: "Matriz de Riesgos",
-                    path: "/capitulo-4/matriz-riesgos",
+                    path: routes.chapter4.riskMatrix,
                 },
             ],
         },
@@ -104,16 +126,21 @@ export const municipalNavigationBase: NavigationConfig = {
             label: "Capítulo 5",
             description:
                 "Transparencia",
+            path: routes.chapter5.home,
             icon: "chapter",
             chapter: 5,
             children: [
                 {
+                    label: "Inicio",
+                    path: routes.chapter5.home,
+                },
+                {
                     label: "Lista de Cumplimiento",
-                    path: "/capitulo-5/cumplimiento",
+                    path: routes.chapter5.compliance,
                 },
                 {
                     label: "Reporte Básico",
-                    path: "/capitulo-5/reporte",
+                    path: routes.chapter5.report,
                 },
             ],
         },
@@ -123,16 +150,21 @@ export const municipalNavigationBase: NavigationConfig = {
             label: "Capítulo 6",
             description:
                 "Integridad y Ética",
+            path: routes.chapter6.home,
             icon: "chapter",
             chapter: 6,
             children: [
                 {
+                    label: "Inicio",
+                    path: routes.chapter6.home,
+                },
+                {
                     label: "Guía de Integridad",
-                    path: "/capitulo-6/guia-integridad",
+                    path: routes.chapter6.integrityGuide,
                 },
                 {
                     label: "Código de Ética y Conducta",
-                    path: "/capitulo-6/codigo-etica",
+                    path: routes.chapter6.ethicsCode,
                 },
             ],
         },
@@ -142,16 +174,21 @@ export const municipalNavigationBase: NavigationConfig = {
             label: "Capítulo 7",
             description:
                 "Participación Ciudadana",
+            path: routes.chapter7.home,
             icon: "chapter",
             chapter: 7,
             children: [
                 {
+                    label: "Inicio",
+                    path: routes.chapter7.home,
+                },
+                {
                     label: "Registro de Participación",
-                    path: "/capitulo-7/registro",
+                    path: routes.chapter7.register,
                 },
                 {
                     label: "Programa Municipal",
-                    path: "/capitulo-7/programa",
+                    path: routes.chapter7.program,
                 },
             ],
         },
@@ -161,16 +198,21 @@ export const municipalNavigationBase: NavigationConfig = {
             label: "Capítulo 8",
             description:
                 "Monitoreo y Evaluación",
+            path: routes.chapter8.home,
             icon: "chapter",
             chapter: 8,
             children: [
                 {
+                    label: "Inicio",
+                    path: routes.chapter8.home,
+                },
+                {
                     label: "Indicadores de Desempeño",
-                    path: "/capitulo-8/indicadores",
+                    path: routes.chapter8.indicators,
                 },
                 {
                     label: "Informe de Avance",
-                    path: "/capitulo-8/informe-avance",
+                    path: routes.chapter8.progressReport,
                 },
             ],
         },
@@ -178,14 +220,14 @@ export const municipalNavigationBase: NavigationConfig = {
         {
             id: "resources",
             label: "Recursos",
-            path: "/recursos",
+            path: routes.resources,
             icon: "resources",
         },
 
         {
             id: "tracking",
             label: "Seguimiento",
-            path: "/seguimiento",
+            path: routes.tracking,
             icon: "tracking",
         },
     ],
